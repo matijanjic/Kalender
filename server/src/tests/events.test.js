@@ -42,6 +42,36 @@ describe('adding events', () => {
       .send(event)
       .expect(200);
   });
+
+  test('fails with missing data', async () => {
+    const malformattedEvent = {
+      name: 'Test event',
+      date: new Date(2022, 2, 2, 2),
+    };
+    await api
+      .post('/api/events')
+      .send(malformattedEvent)
+      .expect(400);
+
+    const result = await api.post('/api/events').send(malformattedEvent);
+    expect(result.body.error).toContain('validation failed');
+  });
+});
+
+test('Updating an event field works', async () => {
+  const eventsAtStart = await testUtils.eventsInDb();
+  const { id } = eventsAtStart[0];
+  const updatedField = {
+    name: 'updated name',
+  };
+
+  await api
+    .patch(`/api/events/${id}`)
+    .send(updatedField)
+    .expect(200);
+  const eventsAtEnd = await testUtils.eventsInDb();
+
+  expect(eventsAtEnd[0].name).toBe('updated name');
 });
 
 afterAll(() => {
