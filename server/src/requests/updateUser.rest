@@ -1,0 +1,6 @@
+PATCH http://localhost:3000/api/users/61e0ae015fae254c47717350
+content-type: application/json
+
+{
+  "name": "Updated Name"
+}

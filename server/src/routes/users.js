@@ -4,6 +4,7 @@ const {
   getUsers,
   createUser,
   deleteUser,
+  updateUser,
 } = require('../services/userService');
 
 require('express-async-errors');
@@ -24,6 +25,13 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const createdUser = await createUser(req.body);
   res.json(createdUser);
+});
+
+router.patch('/:id', async (req, res) => {
+  const { id } = req.params;
+  const userFieldsToUpdate = req.body;
+  const updatedUser = await updateUser(id, userFieldsToUpdate);
+  res.json(updatedUser);
 });
 
 router.delete('/:id', async (req, res) => {
