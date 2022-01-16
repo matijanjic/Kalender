@@ -1,0 +1,6 @@
+PATCH http://localhost:3000/api/events/61e446ef3d2461820fa1680b
+content-type: application/json
+
+{
+  "name": "Update Test2"
+}
