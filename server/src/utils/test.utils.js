@@ -52,12 +52,17 @@ const initEvents = async () => {
   await initUsers();
   await Event.deleteMany({});
   const users = await User.find({});
+  for (const event of initialEvents) {
+    event.creator = users[0]._id;
+    event.includes = [users[0]._id, users[1]._id];
+    const eventToSave = new Event(event);
+    await eventToSave.save();
+  }
+};
 
-  const event = initialEvents[0];
-  event.creator = users[0]._id;
-  event.includes = [users[0]._id, users[1]._id];
-  const eventToSave = new Event(event);
-  await eventToSave.save();
+const eventsInDb = async () => {
+  const events = await Event.find({});
+  return events.map((event) => event.toJSON());
 };
 
 module.exports = {
@@ -66,4 +71,5 @@ module.exports = {
   usersInDb,
   initEvents,
   initialEvents,
+  eventsInDb,
 };

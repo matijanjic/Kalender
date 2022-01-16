@@ -1,0 +1,9 @@
+POST http://localhost:3000/api/events
+content-type: application/json
+
+{
+  "name": "Matija",
+  "date": "2022-05-21T21:00:00.000+00:00",
+  "creator": "61e216103c1c72278b19bc3a",
+  "includes": ["61e216103c1c72278b19bc3a"]
+}
