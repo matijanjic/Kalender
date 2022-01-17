@@ -1,7 +1,7 @@
 const Event = require('../models/Event');
 
 const getEvents = async () => {
-  const events = await Event.find({}).populate(['creator', 'includes']);
+  const events = await Event.find({}).populate('creator', { name: 1 }).populate('includes', { name: 1 });
   return events;
 };
 
