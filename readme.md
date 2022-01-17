@@ -1,5 +1,5 @@
-##Kalender
-#####*MERN stack calendar app for group usage*
+## Kalender
+##### *MERN stack calendar app for group usage*
 
 install dependencies:
 ```
