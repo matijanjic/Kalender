@@ -15,7 +15,6 @@ router.post('/', async (req, res) => {
 router.patch('/:id', async (req, res) => {
   const { id } = req.params;
   const eventFieldsToUpdate = req.body;
-  console.log(eventFieldsToUpdate);
   const updatedEvent = await updateEvent(id, eventFieldsToUpdate);
   res.json(updatedEvent);
 });

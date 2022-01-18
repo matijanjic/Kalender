@@ -16,7 +16,6 @@ describe('events are returned', () => {
       .get('/api/events')
       .expect(200)
       .expect('Content-Type', /application\/json/);
-    console.log(inspect(events.body, { depth: null }));
   });
 
   test('all events are returned', async () => {
@@ -36,7 +35,6 @@ describe('adding events', () => {
       creator: creatorId,
       includes: includesIds,
     };
-    console.log(event);
     await api
       .post('/api/events')
       .send(event)
