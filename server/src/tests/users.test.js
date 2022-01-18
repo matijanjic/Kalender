@@ -59,7 +59,7 @@ describe('adding a user', () => {
     const response = await api.get('/api/users');
     expect(response.body).toHaveLength(users.length);
   });
-  test('with no user missing field fails with status code 400', async () => {
+  test('with missing field fails with status code 400', async () => {
     const userToSave = {
       username: 'test_username',
       password: 'test_password',
@@ -70,6 +70,7 @@ describe('adding a user', () => {
       .send(userToSave)
       .expect(400);
   });
+
   test('fails when username already taken', async () => {
     const user = testUtils.initialUsers[0];
     const result = await api
@@ -79,6 +80,18 @@ describe('adding a user', () => {
       .expect('Content-Type', /application\/json/);
 
     expect(result.body.error).toContain('`username` to be unique');
+  });
+
+  test('fails when password is malformed', async () => {
+    const user = {
+      name: 'test_name',
+      username: 'test_username',
+      password: 'foo',
+    };
+    await api
+      .post('/api/users')
+      .send(user)
+      .expect(400);
   });
 });
 
@@ -93,6 +106,21 @@ describe('deletion of a user', () => {
 
     const usersAtEnd = await testUtils.usersInDb();
     expect(usersAtEnd).toHaveLength(testUtils.initialUsers.length - 1);
+  });
+});
+
+describe('updating user info', () => {
+  test('Succeds with correct fields', async () => {
+    const usersAtStart = await testUtils.usersInDb();
+    const userToChange = usersAtStart[0];
+
+    const result = await api
+      .patch(`/api/users/${userToChange.id}`)
+      .send({ name: 'JaneDoe' })
+      .expect(200);
+
+    expect(userToChange.name).not.toBe(result.body.name);
+    expect(result.body.name).toBe('JaneDoe');
   });
 });
 

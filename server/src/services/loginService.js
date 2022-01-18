@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const createError = require('http-errors');
+// const createError = require('http-errors');
 const User = require('../models/User');
+const ApiError = require('../utils/ApiError');
 require('dotenv').config();
 
 const { SECRET } = process.env;
@@ -14,8 +15,7 @@ const loginUser = async (username, password) => {
     : await bcrypt.compare(password, user.passwordHash);
 
   if (!(user && passwordCorrect)) {
-    const error = createError(401, 'Wrong username or password');
-    throw error;
+    throw ApiError.authorizationError('wrong username or password');
   }
 
   const userForToken = {

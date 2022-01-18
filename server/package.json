@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=production node ./src/index.js",
     "dev": "NODE_ENV=development nodemon ./src/index.js",
-    "test": "NODE_ENV=test jest --verbose --runInBand",
+    "test": "NODE_ENV=test jest --verbose --coverage --runInBand",
     "lint": "eslint --ext .js ."
   },
   "author": "Matija Janjic",

@@ -1,3 +1,4 @@
+const ApiError = require('./ApiError');
 const logger = require('./logger');
 
 const requestLogger = (request, response, next) => {
@@ -21,8 +22,9 @@ const errorHandler = (error, request, response, next) => {
   if (error.name === 'JsonWebTokenError') {
     return response.status(401).json({ error: 'invalid token' });
   }
-  if (error.name === 'UnauthorizedError') {
-    return response.status(401).json({ error: 'Wrong username or password' });
+
+  if (error instanceof ApiError) {
+    return response.status(error.code).json(error.message);
   }
 
   next(error);

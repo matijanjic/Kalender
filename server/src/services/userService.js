@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
+const ApiError = require('../utils/ApiError');
 
 // get all users
 const getUsers = async () => {
@@ -9,17 +10,14 @@ const getUsers = async () => {
 
 const getUser = async (id) => {
   const user = await User.findById(id);
-  if (!user) {
-    throw new Error('User not found');
-  }
   return user;
 };
 
 // create a new user
 const createUser = async ({ name, username, password }) => {
   // password length check
-  if (!password || password.length < 3) {
-    throw new Error('Password must be at least 3 characters long');
+  if (!password || password.length < 6) {
+    throw ApiError.badRequest('password must be at least 6 characters long');
   }
 
   // hashing the password
