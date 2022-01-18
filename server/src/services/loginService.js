@@ -5,8 +5,6 @@ const User = require('../models/User');
 const ApiError = require('../utils/ApiError');
 require('dotenv').config();
 
-const { SECRET } = process.env;
-
 const loginUser = async (username, password) => {
   const user = await User.findOne({ username });
 
@@ -23,7 +21,7 @@ const loginUser = async (username, password) => {
     id: user._id,
   };
 
-  const token = jwt.sign(userForToken, SECRET);
+  const token = jwt.sign(userForToken, process.env.SECRET);
   return { token, username: user.username, name: user.name };
 };
 
