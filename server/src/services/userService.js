@@ -5,12 +5,12 @@ const ApiError = require('../utils/ApiError');
 // get all users
 const getUsers = async () => {
   const users = await User.find({}).populate();
-  return users;
+  return users.map((user) => user.toJSON());
 };
 
 const getUser = async (id) => {
   const user = await User.findById(id);
-  return user;
+  return user.toJSON();
 };
 
 // create a new user
@@ -31,7 +31,7 @@ const createUser = async ({ name, username, password }) => {
   });
 
   const savedUser = await user.save();
-  return savedUser;
+  return savedUser.toJSON();
 };
 
 const deleteUser = async (id) => {
@@ -40,7 +40,7 @@ const deleteUser = async (id) => {
 
 const updateUser = async (id, userFieldsToUpdate) => {
   const updatedUser = await User.findByIdAndUpdate(id, userFieldsToUpdate, { new: true });
-  return updatedUser;
+  return updatedUser.toJSON();
 };
 
 module.exports = {

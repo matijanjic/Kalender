@@ -15,8 +15,5 @@ module.exports = {
     'no-console': 'off',
     'no-param-reassign': 'off',
     'no-underscore-dangle': 'off',
-    'collectCoverageFrom': [
-      './src/services'
-    ]
   },
 };

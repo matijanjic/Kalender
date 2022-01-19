@@ -3,6 +3,7 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const Event = require('../models/Event');
+const Calendar = require('../models/Calendar');
 
 const initialUsers = [
   {
@@ -25,6 +26,15 @@ const initialEvents = [
   {
     name: 'Birthday party',
     date: new Date(2022, 0, 2, 20, 0),
+  },
+];
+
+const initialCalendars = [
+  {
+    name: 'test_calendar1',
+  },
+  {
+    name: 'test_calendar2',
   },
 ];
 
@@ -65,6 +75,25 @@ const eventsInDb = async () => {
   return events.map((event) => event.toJSON());
 };
 
+const initCalendars = async () => {
+  await Calendar.deleteMany({});
+  await initEvents();
+  const events = await eventsInDb();
+  const users = await usersInDb();
+
+  for (const calendar of initialCalendars) {
+    calendar.users = [users[0].id, users[1].id];
+    calendar.events = [events[0].id, events[1].id];
+    const calendarToSave = new Calendar(calendar);
+    await calendarToSave.save();
+  }
+};
+
+const calendarsInDb = async () => {
+  const calendars = await Event.find({});
+  return calendars.map((calendar) => calendar.toJSON());
+};
+
 module.exports = {
   initialUsers,
   initUsers,
@@ -72,4 +101,7 @@ module.exports = {
   initEvents,
   initialEvents,
   eventsInDb,
+  initCalendars,
+  calendarsInDb,
+  initialCalendars,
 };

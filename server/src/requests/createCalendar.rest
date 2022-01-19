@@ -1,0 +1,8 @@
+POST http://localhost:3000/api/calendars
+content-type: application/json
+
+{
+  "name": "test_calendar",
+  "events": ["61e446ef3d2461820fa1680b", "61e44719253f382c09965565"],
+  "users": ["61e0ae015fae254c47717350", "61e0ae26c9ab420cb635622d"]
+}

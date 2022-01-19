@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
-const { inspect } = require('util');
 const app = require('../app');
 const testUtils = require('../utils/test.utils');
 
@@ -12,7 +11,7 @@ beforeEach(async () => {
 
 describe('events are returned', () => {
   test('events are returned as json', async () => {
-    const events = await api
+    await api
       .get('/api/events')
       .expect(200)
       .expect('Content-Type', /application\/json/);

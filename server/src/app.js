@@ -2,6 +2,7 @@ const express = require('express');
 const userRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
 const eventRouter = require('./routes/events');
+const calendarRouter = require('./routes/calendars');
 const db = require('./db/db');
 const middleware = require('./utils/middleware');
 require('express-async-errors');
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/api/users', userRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/events', eventRouter);
+app.use('/api/calendars', calendarRouter);
 
 app.use(middleware.errorHandler);
 
