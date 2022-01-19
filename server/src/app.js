@@ -21,6 +21,7 @@ app.use('/api/login', loginRouter);
 app.use('/api/events', eventRouter);
 app.use('/api/calendars', calendarRouter);
 
+app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 
 module.exports = app;

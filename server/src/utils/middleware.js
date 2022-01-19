@@ -1,6 +1,10 @@
 const ApiError = require('./ApiError');
 const logger = require('./logger');
 
+const unknownEndpoint = (request, response, next) => {
+  next(ApiError.unknownEndpoint('page not found'));
+};
+
 const requestLogger = (request, response, next) => {
   logger.info('Method:', request.method);
   logger.info('Path:  ', request.path);
@@ -40,5 +44,5 @@ const tokenExtractor = (request, response, next) => {
 };
 
 module.exports = {
-  errorHandler, tokenExtractor, requestLogger,
+  errorHandler, tokenExtractor, requestLogger, unknownEndpoint,
 };

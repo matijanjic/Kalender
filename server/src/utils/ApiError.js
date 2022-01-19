@@ -11,6 +11,10 @@ class ApiError {
   static badRequest(message) {
     return new ApiError(400, message);
   }
+
+  static unknownEndpoint(message) {
+    return new ApiError(404, message);
+  }
 }
 
 module.exports = ApiError;
