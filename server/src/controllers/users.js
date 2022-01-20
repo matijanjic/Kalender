@@ -3,18 +3,20 @@ const User = require('../models/User');
 const ApiError = require('../utils/ApiError');
 
 // get all users
-const getUsers = async () => {
+const getUsers = async (req, res) => {
   const users = await User.find({}).populate();
-  return users.map((user) => user.toJSON());
+  res.send(users.map((user) => user.toJSON()));
 };
 
-const getUser = async (id) => {
+const getUser = async (req, res) => {
+  const { id } = req.params;
   const user = await User.findById(id);
-  return user.toJSON();
+  res.send(user.toJSON());
 };
 
 // create a new user
-const createUser = async ({ name, username, password }) => {
+const createUser = async (req, res) => {
+  const { username, name, password } = req.body;
   // password length check
   if (!password || password.length < 6) {
     throw ApiError.badRequest('password must be at least 6 characters long');
@@ -31,16 +33,20 @@ const createUser = async ({ name, username, password }) => {
   });
 
   const savedUser = await user.save();
-  return savedUser.toJSON();
+  res.send(savedUser.toJSON());
 };
 
-const deleteUser = async (id) => {
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
   await User.findByIdAndDelete(id);
+  res.status(204).end();
 };
 
-const updateUser = async (id, userFieldsToUpdate) => {
+const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const userFieldsToUpdate = req.body;
   const updatedUser = await User.findByIdAndUpdate(id, userFieldsToUpdate, { new: true });
-  return updatedUser.toJSON();
+  res.send(updatedUser.toJSON());
 };
 
 module.exports = {

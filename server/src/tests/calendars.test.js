@@ -23,6 +23,29 @@ describe('calendars are returned', () => {
   });
 });
 
+describe('adding calendars', () => {
+  test('succeeds when data correctly formatted', async () => {
+    const users = await testUtils.usersInDb();
+    const events = await testUtils.eventsInDb();
+    const calendarsAtStart = await testUtils.calendarsInDb();
+    const calendar = {
+      name: 'test_name',
+      creator: users[0].id,
+      events: [events[0].id, events[1].id],
+      users: [users[0].id, users[1].id],
+    };
+    await api
+      .post('/api/calendars')
+      .send(calendar)
+      .expect(200);
+
+    const calendarsAtEnd = await testUtils.calendarsInDb();
+    console.log(calendarsAtEnd);
+
+    expect(calendarsAtEnd).toHaveLength(calendarsAtStart.length + 1);
+  });
+});
+
 afterAll(() => {
   mongoose.disconnect();
 });

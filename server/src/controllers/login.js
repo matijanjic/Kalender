@@ -5,9 +5,9 @@ const User = require('../models/User');
 const ApiError = require('../utils/ApiError');
 require('dotenv').config();
 
-const loginUser = async (username, password) => {
+const loginUser = async (req, res) => {
+  const { username, password } = req.body;
   const user = await User.findOne({ username });
-
   const passwordCorrect = user === null
     ? false
     : await bcrypt.compare(password, user.passwordHash);
@@ -22,7 +22,7 @@ const loginUser = async (username, password) => {
   };
 
   const token = jwt.sign(userForToken, process.env.SECRET);
-  return { token, username: user.username, name: user.name };
+  res.send({ token, username: user.username, name: user.name });
 };
 
 module.exports = { loginUser };

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for services/calendarService.js</title>
+    <title>Code coverage report for controllers/events.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">services</a> calendarService.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">controllers</a> events.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -80,14 +80,31 @@
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -97,22 +114,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const Calendar = require('../models/Calendar');
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const Event = require('../models/Event');
 &nbsp;
-const getCalendars = async () =&gt; {
-  const calendars = await Calendar.find({}).populate('users').populate('events');
-  return calendars.map((calendar) =&gt; calendar.toJSON());
+const getEvents = async (req, res) =&gt; {
+  const events = await Event.find({}).populate('creator', { name: 1 }).populate('includes', { name: 1 });
+  res.send(events.map((event) =&gt; event.toJSON()));
 };
 &nbsp;
-const createCalendar = async (calendar) =&gt; {
-  const calendarToSave = new Calendar(calendar);
-  const savedCalendar = await calendarToSave.save();
-  return savedCalendar.toJSON();
+const createEvent = async (req, res) =&gt; {
+  const event = req.body;
+  const eventToSave = new Event(event);
+  const savedEvent = await eventToSave.save();
+  res.send(savedEvent.toJSON());
+};
+&nbsp;
+const updateEvent = async (req, res) =&gt; {
+  const { id } = req.params;
+  const eventFieldsToUpdate = req.body;
+  const updatedEvent = await Event.findByIdAndUpdate(id, eventFieldsToUpdate, { new: true });
+  res.send(updatedEvent.toJSON());
 };
 &nbsp;
 module.exports = {
-  getCalendars,
-  createCalendar,
+  getEvents,
+  createEvent,
+  updateEvent,
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -121,7 +148,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Jan 20 2022 09:53:10 GMT+0000 (Greenwich Mean Time)
+                at Thu Jan 20 2022 11:44:39 GMT+0000 (Greenwich Mean Time)
             </div>
         <script src="../prettify.js"></script>
         <script>

@@ -1,22 +1,8 @@
-const router = require('express').Router();
-const { getEvents, createEvent, updateEvent } = require('../services/eventService');
+const router = require('express').Router({ mergeParams: true });
+const { getEvents, createEvent, updateEvent } = require('../controllers/events');
 
-router.get('/', async (req, res) => {
-  const events = await getEvents();
-  res.json(events);
-});
-
-router.post('/', async (req, res) => {
-  const event = req.body;
-  const createdEvent = await createEvent(event);
-  res.json(createdEvent);
-});
-
-router.patch('/:id', async (req, res) => {
-  const { id } = req.params;
-  const eventFieldsToUpdate = req.body;
-  const updatedEvent = await updateEvent(id, eventFieldsToUpdate);
-  res.json(updatedEvent);
-});
+router.get('/', getEvents);
+router.post('/', createEvent);
+router.patch('/:id', updateEvent);
 
 module.exports = router;

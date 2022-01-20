@@ -1,16 +1,7 @@
 const router = require('express').Router();
-const { getCalendars, createCalendar } = require('../services/calendarService');
+const { getCalendars, createCalendar } = require('../controllers/calendars');
 
-router.get('/', async (req, res) => {
-  const calendars = await getCalendars();
-  console.log(calendars);
-  res.json(calendars);
-});
-
-router.post('/', async (req, res) => {
-  const calendar = req.body;
-  const createdCalendar = await createCalendar(calendar);
-  res.json(createdCalendar);
-});
+router.get('/', getCalendars);
+router.post('/', createCalendar);
 
 module.exports = router;

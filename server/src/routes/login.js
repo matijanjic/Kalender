@@ -1,10 +1,6 @@
 const router = require('express').Router();
-const { loginUser } = require('../services/loginService');
+const { loginUser } = require('../controllers/login');
 
-router.post('/', async (req, res) => {
-  const { username, password } = req.body;
-  const loggedUser = await loginUser(username, password);
-  res.json(loggedUser);
-});
+router.post('/', loginUser);
 
 module.exports = router;

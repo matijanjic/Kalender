@@ -82,6 +82,7 @@ const initCalendars = async () => {
   const users = await usersInDb();
 
   for (const calendar of initialCalendars) {
+    calendar.creator = users[0].id;
     calendar.users = [users[0].id, users[1].id];
     calendar.events = [events[0].id, events[1].id];
     const calendarToSave = new Calendar(calendar);
@@ -90,8 +91,8 @@ const initCalendars = async () => {
 };
 
 const calendarsInDb = async () => {
-  const calendars = await Event.find({});
-  return calendars.map((calendar) => calendar.toJSON());
+  const calendars = await Calendar.find({});
+  return calendars;
 };
 
 module.exports = {

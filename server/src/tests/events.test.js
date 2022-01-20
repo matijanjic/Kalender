@@ -26,18 +26,19 @@ describe('events are returned', () => {
 describe('adding events', () => {
   test('succeeds with correct formatting', async () => {
     const users = await testUtils.usersInDb();
-    const creatorId = users[0].id;
-    const includesIds = [users[0].id, users[1].id];
+    const eventsAtStart = await testUtils.eventsInDb();
     const event = {
       name: 'Test event',
       date: new Date(2022, 2, 2, 2),
-      creator: creatorId,
-      includes: includesIds,
+      creator: users[0].id,
+      includes: [users[0].id, users[1].id],
     };
     await api
       .post('/api/events')
       .send(event)
       .expect(200);
+    const eventsAtEnd = await testUtils.eventsInDb();
+    expect(eventsAtEnd).toHaveLength(eventsAtStart.length + 1);
   });
 
   test('fails with missing data', async () => {

@@ -12,6 +12,7 @@ const app = express();
 // connect to the mongodb database
 db.dbConnect();
 app.use(middleware.requestLogger);
+app.use(middleware.tokenExtractor);
 
 // for parsing json requests
 app.use(express.json());
