@@ -13,18 +13,6 @@ const userSchema = mongoose.Schema({
     required: true,
   },
   passwordHash: String,
-  calendars: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Calendar',
-    },
-  ],
-  events: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Event',
-    },
-  ],
 });
 
 userSchema.plugin(uniqueValidator);

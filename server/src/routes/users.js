@@ -1,5 +1,5 @@
 const express = require('express');
-const eventRouter = require('./events');
+// const eventRouter = require('./events');
 const {
   getUser,
   getUsers,
@@ -12,7 +12,7 @@ require('express-async-errors');
 
 const router = express.Router();
 
-router.use('/:id/events', eventRouter);
+// router.use('/:id/events', eventRouter);
 router.get('/', getUsers);
 router.get('/:id', getUser);
 router.post('/', createUser);

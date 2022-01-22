@@ -3,10 +3,9 @@ const Event = require('../models/Event');
 const getEvents = async (req, res) => {
   console.log(req.params.id);
 
-  const events = await Event.find({}).populate({
+  const events = await Event.find({ includes: req.params.id }).populate({
     path: 'creator',
     select: 'name',
-    match: { _id: req.params.id },
   })
     .populate('includes', { name: 1 });
   res.send(events.map((event) => event.toJSON()));

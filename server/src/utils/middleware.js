@@ -1,5 +1,7 @@
+const jwt = require('jsonwebtoken');
 const ApiError = require('./ApiError');
 const logger = require('./logger');
+const User = require('../models/User');
 
 const unknownEndpoint = (request, response, next) => {
   next(ApiError.unknownEndpoint('page not found'));
@@ -39,10 +41,22 @@ const tokenExtractor = (request, response, next) => {
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
     request.token = authorization.substring(7);
   }
+  next();
+};
 
+const userExtractor = async (req, res, next) => {
+  const decodedToken = jwt.verify(req.token, process.env.SECRET);
+  if (!req.token || !decodedToken) {
+    next(ApiError.authorizationError('token missing'));
+  }
+  const user = await User.findById(decodedToken.id);
+  if (!user) {
+    next(ApiError.authorizationError('user not found'));
+  }
+  req.user = user.toJSON();
   next();
 };
 
 module.exports = {
-  errorHandler, tokenExtractor, requestLogger, unknownEndpoint,
+  errorHandler, tokenExtractor, requestLogger, unknownEndpoint, userExtractor,
 };

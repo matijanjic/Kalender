@@ -1,7 +1,8 @@
 const Calendar = require('../models/Calendar');
 
 const getCalendars = async (req, res) => {
-  const calendars = await Calendar.find({}).populate('users').populate('events');
+  const { user } = req;
+  const calendars = await Calendar.find({ users: user.id }).populate('users').populate('events');
   res.send(calendars.map((calendar) => calendar.toJSON()));
 };
 

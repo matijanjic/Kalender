@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const supertest = require('supertest');
 const app = require('../app');
 const testUtils = require('../utils/test.utils');
