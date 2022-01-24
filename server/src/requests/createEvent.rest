@@ -1,9 +1,9 @@
-POST http://localhost:3000/api/events
+POST http://localhost:3000/api/calendars/61edd2485a6b64403021d9a1/events
 content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNpa2FtYXRrbyIsImlkIjoiNjFlMGFkOTExNDU4ZmU4OTMyMmMxNmM1IiwiaWF0IjoxNjQyODY1NjQyfQ.H_yPZE0IrHRGi0Ka5zNNpDdPOQlJMg9ztBfVy6HP2eE
 
 {
-  "name": "Matija",
+  "name": "test_event",
   "date": "2022-05-21T21:00:00.000+00:00",
-  "creator": "61e216103c1c72278b19bc3a",
-  "includes": ["61e216103c1c72278b19bc3a"]
+  "users": ["61e0ae015fae254c47717350"]
 }

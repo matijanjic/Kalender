@@ -1,5 +1,29 @@
 const mongoose = require('mongoose');
 
+const eventSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    minlength: 5,
+  },
+  date: {
+    type: Date,
+    required: true,
+  },
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  users: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+  ],
+});
+
 const calendarSchema = mongoose.Schema({
   name: {
     type: String,
@@ -15,12 +39,7 @@ const calendarSchema = mongoose.Schema({
       ref: 'User',
     },
   ],
-  events: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Event',
-    },
-  ],
+  events: [eventSchema],
 });
 
 calendarSchema.set('toJSON', {

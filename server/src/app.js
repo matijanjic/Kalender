@@ -23,7 +23,7 @@ app.use(tokenExtractor);
 // for parsing json requests
 app.use(express.json());
 
-app.use('/api/users', userRouter); // TODO: add userExtractor to some of the routes
+app.use('/api/users', userRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/calendars', userExtractor, calendarRouter);
 

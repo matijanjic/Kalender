@@ -1,7 +1,7 @@
-DELETE http://localhost:3000/api/calendars/61edd2485a6b64403021d9a1/events/61edd2685a6b64403021d9a5/users
+PATCH  http://localhost:3000/api/calendars/61edd2485a6b64403021d9a1/events/61edd2685a6b64403021d9a5
 content-type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNpa2FtYXRrbyIsImlkIjoiNjFlMGFkOTExNDU4ZmU4OTMyMmMxNmM1IiwiaWF0IjoxNjQyODY1NjQyfQ.H_yPZE0IrHRGi0Ka5zNNpDdPOQlJMg9ztBfVy6HP2eE
 
 {
-  "id": 21
+  "date": "321"
 }

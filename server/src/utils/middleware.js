@@ -20,7 +20,7 @@ const errorHandler = (error, request, response, next) => {
   logger.error(error.message);
 
   if (error.name === 'CastError' && error.kind === 'ObjectId') {
-    return response.status(400).send({ error: 'malformatted id' });
+    return response.status(400).send({ error: 'malformatted id or wrong type' });
   }
   if (error.name === 'ValidationError') {
     return response.status(400).json({ error: error.message });
@@ -53,10 +53,22 @@ const userExtractor = async (req, res, next) => {
   if (!user) {
     next(ApiError.authorizationError('user not found'));
   }
-  req.user = user.toJSON();
+  req.user = user;
   next();
 };
 
+// checks if the user id in the endpoint is the same as the logged in user.
+// Used so the logged in user would't be able to delete or modify other users resources
+// Has to be used after the userExtractor middleware
+const isCurrentUser = async (req, res, next) => {
+  if (req.params.id === req.user.id) {
+    req.isCurrentUser = true;
+    next();
+  } else {
+    next(ApiError.authorizationError('trying to access data from another user'));
+  }
+};
+
 module.exports = {
-  errorHandler, tokenExtractor, requestLogger, unknownEndpoint, userExtractor,
+  errorHandler, tokenExtractor, requestLogger, unknownEndpoint, userExtractor, isCurrentUser,
 };

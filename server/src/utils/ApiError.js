@@ -15,6 +15,10 @@ class ApiError {
   static unknownEndpoint(message) {
     return new ApiError(404, message);
   }
+
+  static notFound(message) {
+    return new ApiError(404, message);
+  }
 }
 
 module.exports = ApiError;

@@ -1,5 +1,11 @@
+/* eslint-disable no-unused-vars */
 const mongoose = require('mongoose');
 const config = require('../utils/config');
+
+// had to add following model imports because mongoose populate method would
+// sometimes throw MissingSchemaError
+const Calendar = require('../models/Calendar');
+const User = require('../models/User');
 
 const dbConnect = async () => {
   try {
