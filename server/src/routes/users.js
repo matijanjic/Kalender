@@ -1,7 +1,6 @@
 const express = require('express');
 const {
   getUser,
-  // getUsers,
   createUser,
   deleteUser,
   updateUser,
@@ -11,9 +10,8 @@ require('express-async-errors');
 
 const router = express.Router();
 
-// router.get('/', getUsers);
 router.get('/:id', userExtractor, isCurrentUser, getUser);
-router.post('/register', createUser);
+router.post('/', createUser);
 router.patch('/:id', userExtractor, isCurrentUser, updateUser);
 router.delete('/:id', userExtractor, isCurrentUser, deleteUser);
 

@@ -2,12 +2,6 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const ApiError = require('../utils/ApiError');
 
-// get all users
-const getUsers = async (req, res) => {
-  const users = await User.find({}).populate();
-  res.send(users);
-};
-
 const getUser = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
@@ -51,7 +45,6 @@ const updateUser = async (req, res) => {
 
 module.exports = {
   getUser,
-  getUsers,
   createUser,
   deleteUser,
   updateUser,

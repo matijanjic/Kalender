@@ -28,10 +28,12 @@ const calendarSchema = mongoose.Schema({
   name: {
     type: String,
     minlength: 3,
+    required: true,
   },
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
+    required: true,
   },
   users: [
     {

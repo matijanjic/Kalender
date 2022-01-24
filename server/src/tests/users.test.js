@@ -1,44 +1,46 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const jwt = require('jsonwebtoken');
 const app = require('../app');
 const User = require('../models/User');
 const testUtils = require('../utils/test.utils');
 
 const api = supertest(app);
 
-const { initialUsers } = testUtils;
+const auth = {};
 
 beforeEach(async () => {
+  // clear the db of users and add the predefined users to it
   await testUtils.initUsers();
-});
-
-test('users are returned as json', async () => {
-  await api
-    .get('/api/users')
-    .expect(200)
-    .expect('Content-Type', /application\/json/);
-});
-
-test('all users are returned', async () => {
-  const response = await api.get('/api/users');
-  expect(response.body).toHaveLength(testUtils.initialUsers.length);
+  // log one user in and store the token and id in the auth global object
+  const response = await api
+    .post('/api/login')
+    .send({
+      username: 'username',
+      password: 'password',
+    });
+  auth.token = `Bearer ${response.body.token}`;
+  auth.currentUserId = jwt.verify(response.body.token, process.env.SECRET).id;
 });
 
 describe('getting a user by ID', () => {
-  test('succedes with correct id', async () => {
-    const user = await User.findOne({ username: initialUsers[0].username });
+  test('succedes when requesting user info of a currently logged in user', async () => {
+    const user = await User.findById(auth.currentUserId);
 
     await api
       .get(`/api/users/${user.id}`)
+      .set('authorization', auth.token)
       .expect(200)
       .expect('Content-Type', /application\/json/);
   });
 
-  test('fails with status code 400 if incorrect id used', async () => {
-    const wrongId = '123456789';
+  test('fails with status code 401 Unauthorized if any other id is used', async () => {
+    const wrongUser = await User.findOne({ username: 'username1' });
+    const wrongId = wrongUser._id.toString();
     await api
       .get(`/api/users/${wrongId}`)
-      .expect(400)
+      .set('authorization', auth.token)
+      .expect(401)
       .expect('Content-Type', /application\/json/);
   });
 });
@@ -56,8 +58,7 @@ describe('adding a user', () => {
       .send(userToSave)
       .expect(200);
     const users = await testUtils.usersInDb();
-    const response = await api.get('/api/users');
-    expect(response.body).toHaveLength(users.length);
+    expect(users).toHaveLength(testUtils.initialUsers.length + 1);
   });
   test('with missing field fails with status code 400', async () => {
     const userToSave = {
@@ -102,6 +103,7 @@ describe('deletion of a user', () => {
 
     await api
       .delete(`/api/users/${userToDelete.id}`)
+      .set('authorization', auth.token)
       .expect(204);
 
     const usersAtEnd = await testUtils.usersInDb();
@@ -116,6 +118,7 @@ describe('updating user info', () => {
 
     const result = await api
       .patch(`/api/users/${userToChange.id}`)
+      .set('authorization', auth.token)
       .send({ name: 'JaneDoe' })
       .expect(200);
 

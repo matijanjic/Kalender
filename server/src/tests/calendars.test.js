@@ -1,24 +1,43 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const jwt = require('jsonwebtoken');
 const app = require('../app');
 const testUtils = require('../utils/test.utils');
 
 const api = supertest(app);
 
+// global auth variable for checking the logged in user
+const auth = {};
+
 beforeEach(async () => {
+  // clear the db of users and calendars and add the predefined entries to it
+  await testUtils.initUsers();
   await testUtils.initCalendars();
+  // log one user in and store the token and id in the auth global object
+  const response = await api
+    .post('/api/login')
+    .send({
+      username: 'username',
+      password: 'password',
+    });
+  auth.token = `Bearer ${response.body.token}`;
+  auth.currentUserId = jwt.verify(response.body.token, process.env.SECRET).id;
 });
 
-describe('calendars are returned', () => {
+describe('returning calendars', () => {
   test('calendars are returned as json', async () => {
     await api
       .get('/api/calendars')
+      .set('authorization', auth.token)
       .expect(200)
       .expect('Content-Type', /application\/json/);
   });
 
-  test('all calendars are returned', async () => {
-    const response = await api.get('/api/events');
+  test('only calendars of the user are returned', async () => {
+    const response = await api
+      .get('/api/calendars')
+      .set('authorization', auth.token);
+    console.log(response.body);
     expect(response.body).toHaveLength(testUtils.initialEvents.length);
   });
 });

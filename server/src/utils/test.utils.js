@@ -2,19 +2,18 @@
 /* eslint-disable no-await-in-loop */
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
-const Event = require('../models/Event');
 const Calendar = require('../models/Calendar');
 
 const initialUsers = [
   {
-    username: 'JohnDoe',
-    name: 'John',
-    password: 'password123',
+    username: 'username',
+    name: 'name',
+    password: 'password',
   },
   {
-    username: 'MaryJane',
-    name: 'Mary Jane',
-    password: '321password',
+    username: 'username1',
+    name: 'name1',
+    password: 'password1',
   },
 ];
 
@@ -58,33 +57,16 @@ const usersInDb = async () => {
   return users.map((user) => user.toJSON());
 };
 
-const initEvents = async () => {
-  await initUsers();
-  await Event.deleteMany({});
-  const users = await User.find({});
-  for (const event of initialEvents) {
-    event.creator = users[0]._id;
-    event.includes = [users[0]._id, users[1]._id];
-    const eventToSave = new Event(event);
-    await eventToSave.save();
-  }
-};
-
-const eventsInDb = async () => {
-  const events = await Event.find({});
-  return events.map((event) => event.toJSON());
-};
-
 const initCalendars = async () => {
   await Calendar.deleteMany({});
-  await initEvents();
-  const events = await eventsInDb();
   const users = await usersInDb();
 
-  for (const calendar of initialCalendars) {
-    calendar.creator = users[0].id;
-    calendar.users = [users[0].id, users[1].id];
-    calendar.events = [events[0].id, events[1].id];
+  for (const [i, calendar] of initialCalendars.entries()) {
+    calendar.creator = users[i].id;
+    calendar.users = [users[i].id];
+    calendar.events = [initialEvents[i]];
+    calendar.events[0].creator = users[i].id;
+    calendar.events[0].users = [users[i].id];
     const calendarToSave = new Calendar(calendar);
     await calendarToSave.save();
   }
@@ -99,9 +81,7 @@ module.exports = {
   initialUsers,
   initUsers,
   usersInDb,
-  initEvents,
   initialEvents,
-  eventsInDb,
   initCalendars,
   calendarsInDb,
   initialCalendars,

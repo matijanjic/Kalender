@@ -4,7 +4,9 @@ const ApiError = require('../utils/ApiError');
 // returns all the calendars of the logged in user
 const getCalendars = async (req, res) => {
   const { user } = req;
-  const calendars = await Calendar.find({ users: user.id });
+  console.log(user);
+  const calendars = await Calendar.find({ users: user._id });
+  console.log(calendars);
   res.send(calendars);
 };
 
@@ -51,6 +53,7 @@ const addEvent = async (req, res) => {
   const { calendarId } = req.params;
   const event = req.body;
   event.creator = req.user.id;
+  event.users = [event.users, req.user.id];
   // find the calendar and add the event to it
   const calendar = await Calendar.findById(calendarId);
 
