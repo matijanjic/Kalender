@@ -5,7 +5,7 @@ const ApiError = require('../utils/ApiError');
 const getUser = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
-  res.send(user);
+  res.json(user);
 };
 
 // create a new user
@@ -27,7 +27,7 @@ const createUser = async (req, res) => {
   });
 
   const savedUser = await user.save();
-  res.send(savedUser.toJSON());
+  res.json(savedUser.toJSON());
 };
 
 const deleteUser = async (req, res) => {
@@ -40,7 +40,7 @@ const updateUser = async (req, res) => {
   const { id } = req.params;
   const userFieldsToUpdate = req.body;
   const updatedUser = await User.findByIdAndUpdate(id, userFieldsToUpdate, { new: true });
-  res.send(updatedUser);
+  res.json(updatedUser);
 };
 
 module.exports = {

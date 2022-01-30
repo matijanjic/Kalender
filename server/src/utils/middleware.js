@@ -4,7 +4,7 @@ const logger = require('./logger');
 const User = require('../models/User');
 
 const unknownEndpoint = (request, response, next) => {
-  next(ApiError.unknownEndpoint('page not found'));
+  next(ApiError.notFound('page not found'));
 };
 
 const requestLogger = (request, response, next) => {
@@ -45,13 +45,13 @@ const tokenExtractor = (request, response, next) => {
 };
 
 const userExtractor = async (req, res, next) => {
-  const decodedToken = jwt.verify(req.token, process.env.SECRET);
-  if (!req.token || !decodedToken) {
+  if (!req.token) {
     next(ApiError.authorizationError('token missing'));
   }
+  const decodedToken = jwt.verify(req.token, process.env.SECRET);
   const user = await User.findById(decodedToken.id);
   if (!user) {
-    next(ApiError.authorizationError('user not found'));
+    next(ApiError.authorizationError('user from token not found'));
   }
   req.user = user;
   next();

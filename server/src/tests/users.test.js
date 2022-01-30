@@ -60,6 +60,7 @@ describe('adding a user', () => {
     const users = await testUtils.usersInDb();
     expect(users).toHaveLength(testUtils.initialUsers.length + 1);
   });
+
   test('with missing field fails with status code 400', async () => {
     const userToSave = {
       username: 'test_username',

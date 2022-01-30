@@ -12,6 +12,7 @@ const {
   getUsers,
   getEvents,
   removeCalendar,
+  removeUser,
 } = require('../controllers/calendars');
 
 router.route('/')
@@ -25,6 +26,9 @@ router.route('/:calendarId')
 router.route('/:calendarId/users')
   .get(getUsers)
   .post(addUser);
+
+router.route('/:calendarId/users/:userId')
+  .delete(removeUser);
 
 router.route('/:calendarId/events')
   .get(getEvents)

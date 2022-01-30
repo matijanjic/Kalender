@@ -15,6 +15,16 @@ const initialUsers = [
     name: 'name1',
     password: 'password1',
   },
+  {
+    username: 'username2',
+    name: 'name2',
+    password: 'password2',
+  },
+  {
+    username: 'username3',
+    name: 'name3',
+    password: 'password3',
+  },
 ];
 
 const initialEvents = [
@@ -63,10 +73,10 @@ const initCalendars = async () => {
 
   for (const [i, calendar] of initialCalendars.entries()) {
     calendar.creator = users[i].id;
-    calendar.users = [users[i].id];
+    calendar.users = [users[i].id, users[3].id];
     calendar.events = [initialEvents[i]];
     calendar.events[0].creator = users[i].id;
-    calendar.events[0].users = [users[i].id];
+    calendar.events[0].users = [users[i].id, users[3].id];
     const calendarToSave = new Calendar(calendar);
     await calendarToSave.save();
   }
@@ -74,7 +84,7 @@ const initCalendars = async () => {
 
 const calendarsInDb = async () => {
   const calendars = await Calendar.find({});
-  return calendars;
+  return calendars.map((calendar) => calendar.toJSON());
 };
 
 module.exports = {

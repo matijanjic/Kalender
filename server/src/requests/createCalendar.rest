@@ -1,8 +1,7 @@
 POST http://localhost:3000/api/calendars
 content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNpa2FtYXRrbyIsImlkIjoiNjFlMGFkOTExNDU4ZmU4OTMyMmMxNmM1IiwiaWF0IjoxNjQyODY1NjQyfQ.H_yPZE0IrHRGi0Ka5zNNpDdPOQlJMg9ztBfVy6HP2eE
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lMSIsImlkIjoiNjFmMDExZjRkOWUzZjUyZDI0NWQwMGYxIiwiaWF0IjoxNjQzMTIzMjEyfQ.eZrwAd1AOydZcDnpC9wK1p18KBX8cFuftTWNY0gil18
 
 {
-  "name": "test_calendar2",
-  "users": ["61e0ad911458fe89322c16c5", "61e0ae015fae254c47717350"]
+  "name": "test_calendar1"
 }

@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
+// TODO: a way to implement unique ObjectID's for calendar and event users,
+// so there wouldn't be needles duplicates
+// mongooose-unique-validator doesn't seem to work, have to test it further.
+
 const eventSchema = mongoose.Schema({
   name: {
     type: String,
@@ -39,6 +43,7 @@ const calendarSchema = mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
+      required: true,
     },
   ],
   events: [eventSchema],
