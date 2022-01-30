@@ -717,7 +717,6 @@ describe('getting events', () => {
       .set('authorization', auth.token)
       .expect('Content-Type', /application\/json/)
       .expect(200);
-    console.log(response.body);
     expect(calendars[0].events).toHaveLength(response.body.length);
     expect(response.body[0]).toHaveProperty('name');
   });
