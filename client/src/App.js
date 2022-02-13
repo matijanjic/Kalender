@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import CalendarList from './components/CalendarList/CalendarList';
 import Login from './components/Login/Login';
+import CreateCalendar from './components/CreateCalendar/CreateCalendar';
 import { checkLocalStorage } from './store/reducers/loginReducer';
 import { getCalendars } from './store/reducers/calendarReducer';
 import SignUp from './components/SignUp/SignUp';
@@ -23,20 +24,17 @@ import SignUp from './components/SignUp/SignUp';
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.login);
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(checkLocalStorage());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getCalendars());
-    console.log(`dispatch called getCalendars`);
-  }, [user]);
-
-  useEffect(() => {
-    if (user) navigate('/calendars');
-  }, [user, navigate]);
+  // useEffect(() => {
+  //   if (user) {
+  //     dispatch(getCalendars());
+  //     console.log(`dispatch called getCalendars`);
+  //   }
+  // }, [user, dispatch]);
 
   return (
     <div className="-mt-9 ">
@@ -46,9 +44,10 @@ function App() {
             path="calendars"
             element={user ? <CalendarList /> : <Navigate replace to="/login" />}
           />
+          <Route path="calendars/:calendarId" element={<div>hello</div>} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
-          {/* <Route path="createCalendar" element={<CreateCalendar />} /> */}
+          <Route path="create-calendar" element={<CreateCalendar />} />
         </Route>
       </Routes>
     </div>

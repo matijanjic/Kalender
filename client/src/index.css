@@ -19,7 +19,7 @@
 }
 
 .main-button-pink {
-  @apply bg-pink text-white p-2 mt-6 rounded-md w-28 shadow-xl hover:bg-purple hover:text-white active:shadow-none transition ease-in-out delay-75 active:bg-darkpurple;
+  @apply bg-pink text-white p-2 px-7 mt-6 rounded-md w-auto shadow-xl hover:bg-purple hover:text-white active:shadow-none transition ease-in-out delay-75 active:bg-darkpurple;
 }
 
 .input-purple {
@@ -28,4 +28,8 @@
 
 .input-label {
   @apply text-purple mt-3 font-medium mb-1;
+}
+
+h3 {
+  @apply text-3xl font-bold text-purple mb-2;
 }

@@ -5,7 +5,7 @@ import { logOut } from '../../store/reducers/loginReducer';
 import logoImg from './resources/logo.svg';
 import CustomLink from '../CustomLink/CustomLink';
 
-function Navbar() {
+function Navbar({ children }) {
   const user = useSelector((state) => state.login);
   const dispatch = useDispatch();
 

@@ -1,0 +1,17 @@
+.calendar-card {
+  @apply flex flex-col animate-none justify-around items-center text-center text-purple outline outline-4 hover:outline-pink hover:text-pink h-48 shadow-sm rounded-3xl hover:scale-105 hover:cursor-pointer hover:shadow-lg transition-all ease-in-out delay-75;
+}
+
+@keyframes popout {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+.calendar-card--name {
+  @apply flex justify-center items-center mt-4 font-medium text-xl text-center h-1/5 w-5/6;
+}

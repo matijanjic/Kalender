@@ -1,24 +1,41 @@
 import React from 'react';
+import './CalendarCard.css';
+import { useNavigate } from 'react-router-dom';
 
 const calcDaysUntil = (date) =>
   Math.round(Math.abs(Date.now() - date) / (1000 * 60 * 60 * 24));
 
 function CalendarCard({ calendar }) {
-  const events = calendar.events.sort(
-    (a, b) => new Date(a.date) - new Date(b.date),
-  );
-  const upcomingEvent = events[0];
-  const days = calcDaysUntil(Date.parse(upcomingEvent.date));
+  const navigate = useNavigate();
+
   let daysUntilEvent;
-  if (days === 0) daysUntilEvent = 'today';
-  if (days === 1) daysUntilEvent = 'tomorrow';
-  daysUntilEvent = `in ${days} days`;
+  let upcomingEvent;
+  if (calendar.events.length === 0) {
+    upcomingEvent = 'no events';
+    daysUntilEvent = 'no events added';
+  } else {
+    const events = calendar.events.sort(
+      (a, b) => new Date(a.date) - new Date(b.date),
+    );
+    upcomingEvent = events[0];
+    const days = calcDaysUntil(Date.parse(upcomingEvent.date));
+
+    if (days === 0) daysUntilEvent = 'today';
+    if (days === 1) daysUntilEvent = 'tomorrow';
+    daysUntilEvent = `in ${days} days`;
+  }
+  const animationStyle = {
+    animationDuration: `${Math.random() + 1}s`,
+    animationName: 'popout',
+  };
 
   return (
-    <div className="flex flex-col justify-around items-center text-center text-white bg-gradient-to-br from-purple to-darkpurple hover:from-pink hover:to-purple hover:text-white h-48 shadow-sm rounded-xl hover:scale-105 hover:cursor-pointer hover:shadow-lg transition-all ease-in-out delay-75">
-      <div className="flex justify-center items-center mt-4 font-medium text-xl text-center h-1/5 w-5/6">
-        {calendar.name}
-      </div>
+    <div
+      className="calendar-card"
+      style={animationStyle}
+      onClick={() => navigate(`/calendars/${calendar.id}`)}
+    >
+      <div className="calendar-card--name">{calendar.name}</div>
       <div className="py-6">
         <div className="font-semibold">upcoming:</div>
         <div className="font-medium">{upcomingEvent.name}</div>

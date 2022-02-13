@@ -16,6 +16,7 @@ const getCalendars = async (req, res) => {
 // creates a new calendar
 const createCalendar = async (req, res) => {
   const calendar = req.body;
+
   // req.user available because of the extractUser middleware in the app.js
   calendar.creator = req.user.id;
   calendar.users = calendar.users

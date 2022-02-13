@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { setUser } from '../../store/reducers/loginReducer';
-import './Login.css';
 import loginImage from './resources/login_illustration.svg';
+import LinesFlex from '../LinesFlex/LinesFlex';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const user = useSelector((state) => state.login);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) navigate('/calendars');
+  }, [user, navigate]);
 
   const dispatch = useDispatch();
 
@@ -24,11 +32,10 @@ function Login() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-0 xl:gap-16">
-      <div className="background--lines--1 drop-shadow-lg"></div>
+    <LinesFlex>
       <main className="flex flex-row flex-wrap justify-center items-center xl:gap-48 w-screen -mt-6">
         <div className="flex-initial xl:min-w-fit -mt-16 mb-16 xl:m-0">
-          <h1 className="text-3xl bold font-bold text-purple mb-2">Login</h1>
+          <h3>Login</h3>
           <form onSubmit={login}>
             <div className="input-label">username:</div>
             <input
@@ -54,8 +61,7 @@ function Login() {
 
         <img src={loginImage} alt="girl logging in" className="xl:h-80 h-0" />
       </main>
-      <div className="background--lines--2 drop-shadow-lg"></div>
-    </div>
+    </LinesFlex>
   );
 }
 
