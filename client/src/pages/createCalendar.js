@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import LinesFlex from '../../components/LinesFlex/LinesFlex';
-import { addCalendar } from '../../store/reducers/calendarReducer';
-import Navbar from '../../components/Navbar/Navbar';
+import LinesFlex from '../components/LinesFlex/LinesFlex';
+import { addCalendar } from '../store/reducers/calendarReducer';
+import Navbar from '../components/Navbar/Navbar';
 
 function CreateCalendar() {
   const [name, setName] = useState('');
@@ -20,8 +20,8 @@ function CreateCalendar() {
   return (
     <Navbar>
       <LinesFlex>
-        <h3>Create a calendar</h3>
         <form onSubmit={createCalendar} className="flex flex-col">
+          <h3 className="mb-8">Create a calendar</h3>
           <label htmlFor="name" className="input-label">
             Calendar name:
           </label>

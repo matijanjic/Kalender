@@ -3,10 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../../store/reducers/loginReducer';
 import logoImg from './resources/logo.svg';
 import CustomLink from '../CustomLink/CustomLink';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar({ children }) {
   const user = useSelector((state) => state.login);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    dispatch(logOut());
+    navigate('/login');
+  };
 
   if (!user) {
     return (
@@ -40,7 +47,7 @@ function Navbar({ children }) {
 
   return (
     <div>
-      <nav className="xl:flex flex-row flex-wrap h-18 p-6 pt-16 px-28 justify-between  items-center">
+      <nav className="xl:flex flex-row flex-wrap h-18 p-6 pt-16 px-28 justify-between items-center">
         <img src={logoImg} alt="Kalen logo" className="m-auto mt-6 xl:m-0" />
         <ul className="md:flex items-baseline flex-row flex-wrap gap-12 text-xl mt-11 xl:mt-0  ">
           <li className="text-center mb-3 xl:mb-0">
@@ -54,10 +61,7 @@ function Navbar({ children }) {
             </CustomLink>
           </li>
           <li className="text-center mb-3 xl:mb-0">
-            <button
-              className="nav-button-logout"
-              onClick={() => dispatch(logOut())}
-            >
+            <button className="nav-button-logout" onClick={logout}>
               logout
             </button>
           </li>

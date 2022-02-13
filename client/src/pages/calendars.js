@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import CalendarCard from '../../components/CalendarCard/CalendarCard';
-import { getCalendars } from '../../store/reducers/calendarReducer';
-import Navbar from '../../components/Navbar/Navbar';
+import CalendarCard from '../components/CalendarCard/CalendarCard';
+import { getCalendars } from '../store/reducers/calendarReducer';
+import Navbar from '../components/Navbar/Navbar';
 
 function CalendarList() {
   const dispatch = useDispatch();

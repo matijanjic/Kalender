@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import userService from '../../services/users';
+import userService from '../services/users';
 import loginImage from './resources/sign_up_illustration.svg';
-import LinesFlex from '../../components/LinesFlex/LinesFlex';
-import Navbar from '../../components/Navbar/Navbar';
+import LinesFlex from '../components/LinesFlex/LinesFlex';
+import Navbar from '../components/Navbar/Navbar';
 
 function SignUp() {
   const [name, setName] = useState('');

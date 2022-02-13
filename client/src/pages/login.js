@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setUser } from '../../store/reducers/loginReducer';
+import { setUser } from '../store/reducers/loginReducer';
 import loginImage from './resources/login_illustration.svg';
-import LinesFlex from '../../components/LinesFlex/LinesFlex';
-import Navbar from '../../components/Navbar/Navbar';
+import LinesFlex from '../components/LinesFlex/LinesFlex';
+import Navbar from '../components/Navbar/Navbar';
 
 function Login() {
   const [username, setUsername] = useState('');
