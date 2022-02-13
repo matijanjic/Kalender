@@ -1,13 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import Navbar from './components/Navbar/Navbar';
-import CalendarList from './components/CalendarList/CalendarList';
-import Login from './components/Login/Login';
-import CreateCalendar from './components/CreateCalendar/CreateCalendar';
+import CalendarList from './pages/CalendarList/CalendarList';
+import Login from './pages/Login/Login';
+import CreateCalendar from './pages/CreateCalendar/CreateCalendar';
 import { checkLocalStorage } from './store/reducers/loginReducer';
-import { getCalendars } from './store/reducers/calendarReducer';
-import SignUp from './components/SignUp/SignUp';
+import SignUp from './pages/SignUp/SignUp';
 
 // TODO
 // TODO WRITE TESTS
@@ -37,20 +35,17 @@ function App() {
   // }, [user, dispatch]);
 
   return (
-    <div className="-mt-9 ">
-      <Routes>
-        <Route path="/" element={<Navbar />}>
-          <Route
-            path="calendars"
-            element={user ? <CalendarList /> : <Navigate replace to="/login" />}
-          />
-          <Route path="calendars/:calendarId" element={<div>hello</div>} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="create-calendar" element={<CreateCalendar />} />
-        </Route>
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<h3>Home</h3>} />
+      <Route
+        path="calendars"
+        element={user ? <CalendarList /> : <Navigate replace to="/login" />}
+      />
+      <Route path="calendars/:calendarId" element={<h3>hello</h3>} />
+      <Route path="login" element={<Login />} />
+      <Route path="signup" element={<SignUp />} />
+      <Route path="create-calendar" element={<CreateCalendar />} />
+    </Routes>
   );
 }
 

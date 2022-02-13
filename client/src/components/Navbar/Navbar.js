@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Outlet } from 'react-router-dom';
 import { logOut } from '../../store/reducers/loginReducer';
 import logoImg from './resources/logo.svg';
 import CustomLink from '../CustomLink/CustomLink';
@@ -12,7 +11,7 @@ function Navbar({ children }) {
   if (!user) {
     return (
       <div>
-        <nav className="xl:flex flex-row flex-wrap h-18 p-6 pt-16 px-28 justify-between mt-8 items-center">
+        <nav className="xl:flex flex-row flex-wrap h-18 p-6 pt-16 px-28 justify-between items-center">
           <img src={logoImg} alt="Kalen logo" className="m-auto mt-6 xl:m-0" />
           <ul className="md:flex flex-row flex-wrap gap-12 text-xl mt-11 xl:mt-0  ">
             <li className="mb-3 xl:mb-0 text-center">
@@ -32,7 +31,7 @@ function Navbar({ children }) {
             </li>
           </ul>
         </nav>
-        <Outlet />
+        {children}
       </div>
     );
   }
@@ -41,7 +40,7 @@ function Navbar({ children }) {
 
   return (
     <div>
-      <nav className="xl:flex flex-row flex-wrap h-18 p-6 pt-16 px-28 justify-between mt-8 items-center">
+      <nav className="xl:flex flex-row flex-wrap h-18 p-6 pt-16 px-28 justify-between  items-center">
         <img src={logoImg} alt="Kalen logo" className="m-auto mt-6 xl:m-0" />
         <ul className="md:flex items-baseline flex-row flex-wrap gap-12 text-xl mt-11 xl:mt-0  ">
           <li className="text-center mb-3 xl:mb-0">
@@ -64,7 +63,7 @@ function Navbar({ children }) {
           </li>
         </ul>
       </nav>
-      <Outlet />
+      {children}
     </div>
   );
 }
