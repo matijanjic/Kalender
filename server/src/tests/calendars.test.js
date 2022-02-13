@@ -16,12 +16,10 @@ beforeEach(async () => {
   await testUtils.initUsers();
   await testUtils.initCalendars();
   // log one user in and store the token and id in the auth global object
-  const response = await api
-    .post('/api/login')
-    .send({
-      username: 'username',
-      password: 'password',
-    });
+  const response = await api.post('/api/login').send({
+    username: 'username',
+    password: 'password',
+  });
   auth.token = `Bearer ${response.body.token}`;
   auth.currentUserId = jwt.verify(response.body.token, process.env.SECRET).id;
 });
@@ -48,9 +46,7 @@ describe('returning multiple calendars', () => {
   });
 
   test('fails when user not logged in with 401', async () => {
-    await api
-      .get('/api/calendars')
-      .expect(401);
+    await api.get('/api/calendars').expect(401);
   });
 });
 
@@ -66,9 +62,7 @@ describe('returning single calendar', () => {
 
   test('fails when not logged in with 401', async () => {
     const calendars = await testUtils.calendarsInDb();
-    await api
-      .get(`/api/calendars/${calendars[0]._id}`)
-      .expect(401);
+    await api.get(`/api/calendars/${calendars[0]._id}`).expect(401);
   });
 
   test('fails when calendar not found with 404', async () => {
@@ -109,11 +103,13 @@ describe('adding a calendar', () => {
       .expect(200);
     const calendars = await testUtils.calendarsInDb();
 
-    expect(_.last(calendars).creator)
-      .toEqual(mongoose.Types.ObjectId(auth.currentUserId));
+    expect(_.last(calendars).creator).toEqual(
+      mongoose.Types.ObjectId(auth.currentUserId),
+    );
 
-    expect(_.last(calendars).users[0])
-      .toEqual(mongoose.Types.ObjectId(auth.currentUserId));
+    expect(_.last(calendars).users[0]).toEqual(
+      mongoose.Types.ObjectId(auth.currentUserId),
+    );
   });
 });
 
@@ -130,9 +126,7 @@ describe('deleting a calendar', () => {
 
   test('fails when not logged in with 401', async () => {
     const calendars = await testUtils.calendarsInDb();
-    await api
-      .delete(`/api/calendars/${calendars[0].id}`)
-      .expect(401);
+    await api.delete(`/api/calendars/${calendars[0].id}`).expect(401);
     const calendarsAtEnd = await testUtils.calendarsInDb();
     expect(calendarsAtEnd).toHaveLength(calendars.length);
   });
@@ -384,7 +378,9 @@ describe('adding an event', () => {
       .send(event)
       .expect(200);
     const calendarsAtEnd = await testUtils.calendarsInDb();
-    expect(calendarsAtEnd[0].events[0].users.toString()).toContain(auth.currentUserId);
+    expect(calendarsAtEnd[0].events[0].users.toString()).toContain(
+      auth.currentUserId,
+    );
   });
 
   test('fails when calendar is not found with 404', async () => {
@@ -486,7 +482,9 @@ describe('removing an event', () => {
       .expect(204);
 
     const calendarsAtEnd = await testUtils.calendarsInDb();
-    expect(calendarsAtEnd[0].events).toHaveLength(calendars[0].events.length - 1);
+    expect(calendarsAtEnd[0].events).toHaveLength(
+      calendars[0].events.length - 1,
+    );
   });
 
   test('fails when user is not the creator with 401', async () => {

@@ -6,7 +6,10 @@ const ApiError = require('../utils/ApiError');
 // returns all the calendars of the logged in user
 const getCalendars = async (req, res) => {
   const { user } = req;
+
   const calendars = await Calendar.find({ users: user._id });
+  console.log(calendars);
+
   res.json(calendars);
 };
 
@@ -15,7 +18,9 @@ const createCalendar = async (req, res) => {
   const calendar = req.body;
   // req.user available because of the extractUser middleware in the app.js
   calendar.creator = req.user.id;
-  calendar.users = calendar.users ? calendar.users.concat(req.user.id) : [req.user.id];
+  calendar.users = calendar.users
+    ? calendar.users.concat(req.user.id)
+    : [req.user.id];
   const calendarToSave = new Calendar(calendar);
   const savedCalendar = await calendarToSave.save();
   res.json(savedCalendar);
@@ -34,7 +39,9 @@ const removeCalendar = async (req, res) => {
     await calendar.remove();
     res.status(204).end();
   } else {
-    throw ApiError.authorizationError("you don't have permission to delete this calendar");
+    throw ApiError.authorizationError(
+      "you don't have permission to delete this calendar",
+    );
   }
 };
 
@@ -63,7 +70,9 @@ const addEvent = async (req, res) => {
     throw ApiError.notFound('calendar not found.');
   }
   if (!calendar.users.includes(req.user.id)) {
-    throw ApiError.authorizationError('can not add events to calendars user is not part of');
+    throw ApiError.authorizationError(
+      'can not add events to calendars user is not part of',
+    );
   }
   calendar.events.push(event);
   const savedCalendar = await calendar.save();
@@ -83,14 +92,16 @@ const addUser = async (req, res) => {
 
   if (!user) throw ApiError.notFound('user not found');
   if (!calendar) throw ApiError.notFound('calendar not found.');
-  if (!calendar.creator.equals(req.user.id)) throw ApiError.authorizationError('only the creator can add users');
+  if (!calendar.creator.equals(req.user.id)) {
+    throw ApiError.authorizationError('only the creator can add users');
+  }
   // checks to see if user is already added
   if (!calendar.users.includes(userId)) {
     calendar.users.push(userId);
     await calendar.save();
     res.status(200).end();
   } else {
-    throw ApiError.badRequest('can\'t add user, user already added.');
+    throw ApiError.badRequest("can't add user, user already added.");
   }
 };
 
@@ -105,9 +116,15 @@ const removeUser = async (req, res) => {
   const userFound = calendar.users.some((user) => user.equals(userId));
   if (!userFound) throw ApiError.notFound('user not found.');
 
-  if (calendar.creator.equals(userId)) throw ApiError.badRequest('can not remove calendar creator from the users list');
+  if (calendar.creator.equals(userId)) {
+    throw ApiError.badRequest(
+      'can not remove calendar creator from the users list',
+    );
+  }
   if (!calendar.creator.equals(req.user.id) && !(userId === req.user.id)) {
-    throw ApiError.authorizationError('only the creator can remove other users.');
+    throw ApiError.authorizationError(
+      'only the creator can remove other users.',
+    );
   }
   calendar.events.forEach((event) => {
     event.users.pull(userId);
@@ -129,7 +146,9 @@ const addEventUser = async (req, res) => {
     throw ApiError.notFound('calendar, event or user not found.');
   }
   if (!calendar.users.includes(userId)) {
-    throw ApiError.authorizationError('user can\'t be added to event, user not part of calendar users.');
+    throw ApiError.authorizationError(
+      "user can't be added to event, user not part of calendar users.",
+    );
   }
   // checks to see if user is already added
   if (!event.users.includes(userId)) {
@@ -137,7 +156,7 @@ const addEventUser = async (req, res) => {
     await calendar.save();
     res.status(200).end();
   } else {
-    throw ApiError.badRequest('can\'t add user, user already exists.');
+    throw ApiError.badRequest("can't add user, user already exists.");
   }
 };
 
@@ -153,11 +172,13 @@ const removeEventUser = async (req, res) => {
   }
   if (!event.users.includes(userId)) throw ApiError.notFound('user not found');
   if (event.creator.equals(userId)) {
-    throw ApiError.badRequest('can\'t remove event creator from users list');
+    throw ApiError.badRequest("can't remove event creator from users list");
   }
 
   if (!event.creator.equals(req.user.id)) {
-    throw ApiError.authorizationError('only the event creator can remove users');
+    throw ApiError.authorizationError(
+      'only the event creator can remove users',
+    );
   }
   event.users.pull(userId);
   await calendar.save();
@@ -174,7 +195,9 @@ const updateEvent = async (req, res) => {
   }
   const { name, date } = req.body;
   if (!name && !date) {
-    throw ApiError.badRequest('Malformatted arguments. Use either name (string), date (Date) or both.');
+    throw ApiError.badRequest(
+      'Malformatted arguments. Use either name (string), date (Date) or both.',
+    );
   }
   if (name) event.name = name;
   if (date) event.date = date;
@@ -190,12 +213,17 @@ const removeEvent = async (req, res) => {
   if (!calendar && !event) {
     throw ApiError.notFound('calendar or event not found.');
   }
-  if (event.creator.equals(req.user.id) || calendar.creator.equals(req.user.id)) {
+  if (
+    event.creator.equals(req.user.id) ||
+    calendar.creator.equals(req.user.id)
+  ) {
     event.remove();
     await calendar.save();
     res.status(204).end();
   } else {
-    throw ApiError.authorizationError("you don't have permission to delete this event");
+    throw ApiError.authorizationError(
+      "you don't have permission to delete this event",
+    );
   }
 };
 
@@ -203,13 +231,20 @@ const removeEvent = async (req, res) => {
 // maybe not required since we can get the array and its users by getCalendar method, we'll see.
 const getUsers = async (req, res) => {
   const { calendarId } = req.params;
-  const calendar = await Calendar.findById(calendarId).populate('users', { name: 1, _id: 1 });
+  const calendar = await Calendar.findById(calendarId).populate('users', {
+    name: 1,
+    _id: 1,
+  });
   if (!calendar) {
     throw ApiError.notFound('calendar not found.');
   }
-  const userInCalendarUsers = calendar.users.some((user) => user._id.equals(req.user.id));
+  const userInCalendarUsers = calendar.users.some((user) =>
+    user._id.equals(req.user.id),
+  );
   if (!userInCalendarUsers) {
-    throw ApiError.authorizationError('can\'t return users of a calendar user is not part of');
+    throw ApiError.authorizationError(
+      "can't return users of a calendar user is not part of",
+    );
   }
   res.json(calendar.users);
 };
@@ -236,9 +271,13 @@ const getEvents = async (req, res) => {
   if (!calendar) {
     throw ApiError.notFound('calendar not found.');
   }
-  const userInCalendarUsers = calendar.users.some((user) => user._id.equals(req.user.id));
+  const userInCalendarUsers = calendar.users.some((user) =>
+    user._id.equals(req.user.id),
+  );
   if (!userInCalendarUsers) {
-    throw ApiError.authorizationError('can\'t return users of a calendar user is not part of');
+    throw ApiError.authorizationError(
+      "can't return users of a calendar user is not part of",
+    );
   }
   res.json(calendar.events);
 };

@@ -9,21 +9,25 @@ const initialUsers = [
     username: 'username',
     name: 'name',
     password: 'password',
+    email: 'email@emaik.com',
   },
   {
     username: 'username1',
     name: 'name1',
     password: 'password1',
+    email: 'email@emaik.com',
   },
   {
     username: 'username2',
     name: 'name2',
     password: 'password2',
+    email: 'email@emaik.com',
   },
   {
     username: 'username3',
     name: 'name3',
     password: 'password3',
+    email: 'email@emaik.com',
   },
 ];
 
@@ -55,6 +59,7 @@ const initUsers = async () => {
     const hashedUser = {
       name: user.name,
       username: user.username,
+      email: user.email,
       passwordHash: hashedPassword,
     };
     const userToSave = new User(hashedUser);

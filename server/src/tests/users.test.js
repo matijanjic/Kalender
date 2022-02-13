@@ -13,14 +13,27 @@ beforeEach(async () => {
   // clear the db of users and add the predefined users to it
   await testUtils.initUsers();
   // log one user in and store the token and id in the auth global object
-  const response = await api
-    .post('/api/login')
-    .send({
-      username: 'username',
-      password: 'password',
-    });
+  const response = await api.post('/api/login').send({
+    username: 'username',
+    password: 'password',
+    email: 'email@email.com',
+  });
   auth.token = `Bearer ${response.body.token}`;
   auth.currentUserId = jwt.verify(response.body.token, process.env.SECRET).id;
+});
+
+describe('getting all users', () => {
+  test('returns all users', async () => {
+    const usersInDB = await testUtils.usersInDb();
+    console.log(usersInDB);
+
+    const response = await api
+      .get('/api/users')
+      .set('authorization', auth.token)
+      .expect(200);
+
+    expect(response.body).toHaveLength(usersInDB.length);
+  });
 });
 
 describe('getting a user by ID', () => {
@@ -51,12 +64,10 @@ describe('adding a user', () => {
       name: 'test_name',
       username: 'test_username',
       password: 'test_password',
+      email: 'test_email',
     };
 
-    await api
-      .post('/api/users')
-      .send(userToSave)
-      .expect(200);
+    await api.post('/api/users').send(userToSave).expect(200);
     const users = await testUtils.usersInDb();
     expect(users).toHaveLength(testUtils.initialUsers.length + 1);
   });
@@ -65,12 +76,10 @@ describe('adding a user', () => {
     const userToSave = {
       username: 'test_username',
       password: 'test_password',
+      email: 'test_email',
     };
 
-    await api
-      .post('/api/users')
-      .send(userToSave)
-      .expect(400);
+    await api.post('/api/users').send(userToSave).expect(400);
   });
 
   test('fails when username already taken', async () => {
@@ -89,11 +98,9 @@ describe('adding a user', () => {
       name: 'test_name',
       username: 'test_username',
       password: 'foo',
+      email: 'test_email',
     };
-    await api
-      .post('/api/users')
-      .send(user)
-      .expect(400);
+    await api.post('/api/users').send(user).expect(400);
   });
 });
 

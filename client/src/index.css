@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&display=swap');
+
+#root {
+  @apply bg-white dark:bg-gradient-to-br from-blackpurple to-deepblackpurple;
+}
+.nav-button {
+  @apply text-center hover:bg-purple flex-initial shrink px-6 py-2 rounded-md hover:text-white hover:shadow-md font-medium text-pink transition ease-in-out delay-75 active:bg-darkpurple;
+}
+
+.nav-button-active {
+  @apply text-center hover:bg-purple flex-initial shrink px-6 py-2 rounded-md hover:text-white hover:shadow-md font-medium text-purple underline transition ease-in-out delay-75 active:bg-darkpurple;
+}
+
+.nav-button-logout {
+  @apply text-center hover:bg-pink hover:outline-pink flex-initial shrink px-6 py-1 rounded-md hover:text-white hover:shadow-md font-medium text-purple ml-4 transition ease-in-out delay-75 outline outline-2 outline-purple;
+}
+
+.main-button-pink {
+  @apply bg-pink text-white p-2 mt-6 rounded-md w-28 shadow-xl hover:bg-purple hover:text-white active:shadow-none transition ease-in-out delay-75 active:bg-darkpurple;
+}
+
+.input-purple {
+  @apply rounded-md p-1 pl-2 w-64 outline outline-2 outline-purple focus:shadow-md focus:outline-offset-1 text-darkpurple;
+}
+
+.input-label {
+  @apply text-purple mt-3 font-medium mb-1;
+}

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const userRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
 const calendarRouter = require('./routes/calendars');
@@ -14,6 +15,7 @@ const {
 require('express-async-errors');
 
 const app = express();
+app.use(cors());
 
 // connect to the mongodb database
 db.dbConnect();

@@ -17,20 +17,14 @@ describe('login of a user', () => {
       username: user.username,
       password: user.password,
     };
-    await api
-      .post('/api/login')
-      .send(userLogin)
-      .expect(200);
+    await api.post('/api/login').send(userLogin).expect(200);
   });
   test('fails with wrong credentials', async () => {
     const wrongCredentials = {
       username: 'wrongUsername',
       password: 'wrongPassword',
     };
-    await api
-      .post('/api/login')
-      .send(wrongCredentials)
-      .expect(401);
+    await api.post('/api/login').send(wrongCredentials).expect(401);
   });
 });
 

@@ -7,10 +7,11 @@ require('dotenv').config();
 
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
+
   const user = await User.findOne({ username });
-  const passwordCorrect = user === null
-    ? false
-    : await bcrypt.compare(password, user.passwordHash);
+  // eslint-disable-next-line operator-linebreak
+  const passwordCorrect =
+    user === null ? false : await bcrypt.compare(password, user.passwordHash);
 
   if (!(user && passwordCorrect)) {
     throw ApiError.authorizationError('wrong username or password');

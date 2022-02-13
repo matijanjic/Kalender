@@ -20,7 +20,9 @@ const errorHandler = (error, request, response, next) => {
   logger.error(error.message);
 
   if (error.name === 'CastError' && error.kind === 'ObjectId') {
-    return response.status(400).send({ error: 'malformatted id or wrong type' });
+    return response
+      .status(400)
+      .send({ error: 'malformatted id or wrong type' });
   }
   if (error.name === 'ValidationError') {
     return response.status(400).json({ error: error.message });
@@ -65,10 +67,17 @@ const isCurrentUser = async (req, res, next) => {
     req.isCurrentUser = true;
     next();
   } else {
-    next(ApiError.authorizationError('trying to access data from another user'));
+    next(
+      ApiError.authorizationError('trying to access data from another user'),
+    );
   }
 };
 
 module.exports = {
-  errorHandler, tokenExtractor, requestLogger, unknownEndpoint, userExtractor, isCurrentUser,
+  errorHandler,
+  tokenExtractor,
+  requestLogger,
+  unknownEndpoint,
+  userExtractor,
+  isCurrentUser,
 };
