@@ -2,3 +2,4 @@
 node_modules/
 notes.txt
 coverage/
+.DS_Store
