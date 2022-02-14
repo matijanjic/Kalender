@@ -1,6 +1,5 @@
 import loginService from '../../services/login';
 import { setToken } from '../../services/calendar';
-import { useNavigate } from 'react-router-dom';
 
 const reducer = (state = null, action) => {
   switch (action.type) {

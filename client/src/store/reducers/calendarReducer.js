@@ -1,31 +1,21 @@
 import calendarService from '../../services/calendar';
 
-const reducer = (state = [], action) => {
+const reducer = (state = {}, action) => {
   switch (action.type) {
-    case 'INIT_CALENDARS':
-      return [...action.data];
-    case 'ADD_CALENDAR':
-      return [...state, action.data];
+    case 'SET_CALENDAR':
+      return action.data;
     default:
       return state;
   }
 };
 
-export const getCalendars = () => {
+export const getCalendar = (id) => {
   return async (dispatch) => {
-    const calendars = await calendarService.getCalendars();
-    console.log(calendars);
+    const calendar = await calendarService.getCalendar(id);
     dispatch({
-      type: 'INIT_CALENDARS',
-      data: calendars,
+      type: 'SET_CALENDAR',
+      data: calendar,
     });
-  };
-};
-
-export const addCalendar = (name) => {
-  return async (dispatch) => {
-    const savedCalendar = await calendarService.addCalendar(name);
-    console.log('saved calendar in reducer', savedCalendar);
   };
 };
 

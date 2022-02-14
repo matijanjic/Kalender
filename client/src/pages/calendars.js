@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CalendarCard from '../components/CalendarCard/CalendarCard';
-import { getCalendars } from '../store/reducers/calendarReducer';
+import { getCalendars } from '../store/reducers/calendarsReducer';
 import Navbar from '../components/Navbar/Navbar';
 
 function CalendarList() {

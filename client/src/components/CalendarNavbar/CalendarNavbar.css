@@ -1,0 +1,7 @@
+.back-button {
+  @apply hover:brightness-50 hover:scale-105 hover:shadow-sm transition-all ease-in-out duration-75;
+  background-image: url('../resources_common/go-back.svg');
+  background-size: cover;
+  width: 3rem;
+  height: 3rem;
+}

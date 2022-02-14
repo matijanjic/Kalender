@@ -2,12 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Raleway:wght@400;500;700&display=swap');
 #root {
   @apply bg-white dark:bg-gradient-to-br from-blackpurple to-deepblackpurple;
 }
 .nav-button {
   @apply text-center hover:bg-purple flex-initial shrink px-6 py-2 rounded-md hover:text-white hover:shadow-md font-medium text-pink transition ease-in-out delay-75 active:bg-darkpurple;
+}
+
+.nav-button-calendar {
+  @apply text-center bg-white hover:bg-pink flex-initial shrink px-6 py-2 rounded-md hover:text-white hover:shadow-md font-medium text-purple transition ease-in-out delay-75 active:bg-darkpurple;
 }
 
 .nav-button-active {

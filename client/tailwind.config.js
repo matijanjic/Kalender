@@ -5,6 +5,7 @@ module.exports = {
       sans: ['ui-sans-serif', 'Raleway'],
       serif: ['ui-serif', 'Georgia'],
       mono: ['ui-monospace', 'SFMono-Regular'],
+      montserrat: ['Montserrat'],
       display: ['Raleway'],
       body: ['Raleway'],
     },

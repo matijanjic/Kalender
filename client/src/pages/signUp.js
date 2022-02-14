@@ -14,7 +14,6 @@ function SignUp() {
   const signUp = (e) => {
     e.preventDefault();
     //TODO regex mail check
-    //TODO make a notification component and notify user about wrong credentials
 
     if (password.length >= 6 && password === repPassword) {
       const user = {

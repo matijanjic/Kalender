@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import LinesFlex from '../components/LinesFlex/LinesFlex';
-import { addCalendar } from '../store/reducers/calendarReducer';
+import { addCalendar } from '../store/reducers/calendarsReducer';
 import Navbar from '../components/Navbar/Navbar';
 
 function CreateCalendar() {
