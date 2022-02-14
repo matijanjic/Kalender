@@ -14,12 +14,13 @@
   "description": "server for the kalender app",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node server",
+    "start": "NODE_ENV=production node server/src",
     "build": "cd client/ && npm install && npm run build",
     "dev": "NODE_ENV=development nodemon ./src/index.js",
     "test": "NODE_ENV=test jest --verbose --runInBand",
     "lint": "eslint --ext .js .",
-    "deploy": "git add . && git commit -m fullBuild && git push heroku"
+    "deploy": "git add . && git commit -m fullBuild && git push heroku",
+    "logs:prod": "heroku logs --tail"
   },
   "author": "Matija Janjic",
   "license": "ISC",
