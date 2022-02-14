@@ -40,7 +40,7 @@ if (!isDev && cluster.isMaster) {
   app.use(cors());
 
   // Priority serve any static files.
-  app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+  app.use(express.static(path.resolve(__dirname, '../../client/build')));
 
   db.dbConnect();
   app.use(requestLogger);
