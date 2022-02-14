@@ -16,7 +16,7 @@ require('express-async-errors');
 
 const app = express();
 app.use(cors());
-
+app.use(express.static('build'));
 // connect to the mongodb database
 db.dbConnect();
 app.use(requestLogger);
