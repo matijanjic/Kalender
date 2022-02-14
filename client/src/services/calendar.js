@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:3002/api/calendars';
+const baseUrl = '/api/calendars';
 
 let token = null;
 
