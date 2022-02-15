@@ -4,7 +4,8 @@
 
 ---
 
-_Note: it's not responsive at the moment since I needed to rush it because of a deadline. That means I'll have the pleasure of combing through everything and fixing it after the fact, but such are the simple pleasures in life._
+_Note: it's not responsive at the moment since I needed to rush it because of a deadline. That means I'll have the pleasure of combing through everything and fixing it after the fact, but such are the simple pleasures in life.
+If it helps visualize what it is supposed to look like, I made it with 16:10 screen._
 
 ---
 
