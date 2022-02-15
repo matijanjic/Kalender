@@ -1,0 +1,12 @@
+.background-lines--home {
+  background-image: url('../resources/background_lines_home.svg');
+  background-size: cover;
+  width: 100vw;
+  height: 1650px;
+}
+
+.lines-home-bottom {
+  background-image: url('../resources/lines_bottom_home.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}

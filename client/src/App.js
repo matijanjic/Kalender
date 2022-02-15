@@ -7,6 +7,7 @@ import Login from './pages/login';
 import CreateCalendar from './pages/createCalendar';
 import SignUp from './pages/signUp';
 import CalendarView from './pages/calendarView';
+import Home from './pages/home/home';
 
 // TODO make a notification component and notify user about wrong credentials
 // TODO WRITE TESTS
@@ -29,7 +30,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<h3>Home</h3>} />
+      <Route path="/" element={<Home />} />
       <Route
         path="calendars"
         element={user ? <Calendars /> : <Navigate replace to="/login" />}

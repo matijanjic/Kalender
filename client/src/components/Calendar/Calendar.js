@@ -38,6 +38,14 @@ const CurrentMonth = ({ date }) => {
   );
 };
 
+const Modal = () => {
+  return (
+    <div className="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-purple w-1/2 h-5/6 z-30">
+      hehehe
+    </div>
+  );
+};
+
 function Calendar() {
   const [date, setDate] = useState({ day: 0, month: 0, year: 0 });
   const [dateNow, setDateNow] = useState({ day: 0, month: 0, year: 0 });
@@ -47,6 +55,7 @@ function Calendar() {
 
   // TODO dates in the middle, low opacity
   // TODO transition animation when changing months
+  // TODO add dates to days from previous and next month
   const parsedDateEvents = events.map((e) => {
     return {
       ...e,
@@ -77,8 +86,8 @@ function Calendar() {
   firstWeekdayOfMonth =
     firstWeekdayOfMonth >= 7 ? firstWeekdayOfMonth - 7 : firstWeekdayOfMonth;
 
-  const findEvent = (dayIndex) => {
-    const event = parsedDateEvents.find((e) => {
+  const findEvents = (dayIndex) => {
+    const event = parsedDateEvents.filter((e) => {
       if (
         e.date.getFullYear() === date.year &&
         e.date.getMonth() === date.month &&
@@ -86,13 +95,14 @@ function Calendar() {
       ) {
         return e;
       }
-      return undefined;
+      return null;
     });
     return event;
   };
 
   return (
     <>
+      {/* <Modal /> */}
       <div className="flex flex-row justify-center items-baseline text-purple gap-4 mb-20 text-center mt-20">
         <BtnMonth date={date} setDate={setDate} prevOrNext={'prev'} />
         <CurrentMonth date={date} />
@@ -110,41 +120,43 @@ function Calendar() {
       {/* empty days before first day of the month */}
       <div className="grid grid-cols-7 grid-rows-4 gap-2 w-5/6 mx-auto">
         {Array.from({ length: firstWeekdayOfMonth }, (_, i) => (
-          <div key={i} className=" -z-10 w-full h-32">
-            {i + 1}
-          </div>
+          <div key={i} className="w-full h-32"></div>
         ))}
         {/* creating the month calendar with the current date as different color*/}
         {Array.from({ length: daysInMonth }, (_, i) => {
           if (date.day === i + 1 && date.month === dateNow.month) {
-            console.log('if', i, date.day, date.month);
-
             return (
               <div
                 key={i}
-                className="font-montserrat outline outline-2 outline-purple z-10 text-8xl font-bold w-full h-32 flex text-center  items-center justify-center"
+                className="hover:scale-105 font-montserrat outline outline-2 outline-purple z-10 text-8xl font-bold w-full h-32 flex text-center  items-center justify-center transition-all ease-in-out duration-75 cursor-pointer"
               >
                 <span key={i + 'span'} className="dates text-purple opacity-20">
                   {i + 1}
                 </span>
                 <div key={i + 'div'} className="text-sm z-10 absolute">
-                  {findEvent(i)?.name}
+                  {findEvents(i).map((event) => (
+                    <div className="mb-1 text-left" key={event._id}>
+                      {event.name}
+                    </div>
+                  ))}
                 </div>
               </div>
             );
           } else {
-            console.log('else', i, date.month, dateNow.month);
-
             return (
               <div
                 key={i}
-                className="font-montserrat outline outline-2 rounded-sm outline-pink text-pink text-8xl font-bold w-full h-32 flex text-center items-center justify-center"
+                className="hover:scale-105 hover:shadow-xl font-montserrat outline outline-2 rounded-sm outline-pink text-pink text-8xl font-bold w-full h-32 flex text-center items-center justify-center transition-all ease-in-out duration-75 cursor-pointer"
               >
-                <span key={i} className="dates opacity-10">
+                <span key={i} className="dates opacity-10 absolute">
                   {i + 1}
                 </span>
-                <div key={i + 'div'} className="text-sm z-10 absolute">
-                  {findEvent(i)?.name}
+                <div key={i + 'div'} className="text-sm z-10">
+                  {findEvents(i).map((event) => (
+                    <div key={event._id} className="mb-1 text-left pl-2">
+                      {event.name}
+                    </div>
+                  ))}
                 </div>
               </div>
             );

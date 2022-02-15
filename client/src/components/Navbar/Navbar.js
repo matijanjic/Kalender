@@ -19,7 +19,12 @@ function Navbar({ children }) {
     return (
       <div>
         <nav className="xl:flex flex-row flex-wrap h-18 p-6 pt-16 px-28 justify-between items-center">
-          <img src={logoImg} alt="Kalen logo" className="m-auto mt-6 xl:m-0" />
+          <img
+            src={logoImg}
+            alt="Kalen logo"
+            className="m-auto mt-6 xl:m-0 cursor-pointer"
+            onClick={() => navigate('/')}
+          />
           <ul className="md:flex flex-row flex-wrap gap-12 text-xl mt-11 xl:mt-0  ">
             <li className="mb-3 xl:mb-0 text-center">
               <CustomLink to="/login" className="nav-button">
@@ -48,7 +53,12 @@ function Navbar({ children }) {
   return (
     <div>
       <nav className="xl:flex flex-row flex-wrap h-18 p-6 pt-16 px-28 justify-between items-center">
-        <img src={logoImg} alt="Kalen logo" className="m-auto mt-6 xl:m-0" />
+        <img
+          src={logoImg}
+          alt="Kalen logo"
+          className="m-auto mt-6 xl:m-0 cursor-pointer"
+          onClick={() => navigate('/')}
+        />
         <ul className="md:flex items-baseline flex-row flex-wrap gap-12 text-xl mt-11 xl:mt-0  ">
           <li className="text-center mb-3 xl:mb-0">
             <CustomLink to="/calendars" className="nav-button">
