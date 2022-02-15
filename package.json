@@ -16,7 +16,7 @@
   "scripts": {
     "start": "NODE_ENV=production node server/src",
     "build": "cd client/ && npm install && npm run build",
-    "dev": "NODE_ENV=development nodemon ./src/index.js",
+    "dev": "NODE_ENV=development nodemon ./server/src/index.js",
     "test": "NODE_ENV=test jest --verbose --runInBand",
     "lint": "eslint --ext .js .",
     "deploy": "git add . && git commit -m fullBuild && git push heroku",
@@ -43,6 +43,5 @@
     "jest": "^27.4.7",
     "nodemon": "^2.0.15",
     "supertest": "^6.2.1"
-  },
-  "proxy": "http://localhost:3002"
+  }
 }
