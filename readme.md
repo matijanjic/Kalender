@@ -4,6 +4,10 @@
 
 ---
 
+_Note: it's not responsive at the moment since I needed to rush it because of a deadline. That means I'll have the pleasure of combing through everything and fixing it after the fact, but such are the simple pleasures in life._
+
+---
+
 Kalen is a first bigger practice project of mine.
 It's a shared calendar app, where multiple people have access to a one or more calendars. You can create multiple calendars for different groups and add or remove events and people.
 
