@@ -1,4 +1,4 @@
-<img src="client/src/components/navbar/resources/logo.svg" width="120px"/>
+<img src="./client/src/components/navbar/resources/logo.svg" width="120px"/>
 
 ##### MERN stack calendar app for group usage
 
