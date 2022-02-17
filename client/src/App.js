@@ -36,6 +36,7 @@ function App() {
         element={user ? <Calendars /> : <Navigate replace to="/login" />}
       />
       <Route path="calendars/:calendarId" element={<CalendarView />} />
+      <Route path="calendar/:year/:month/:day" element={<div>hello</div>} />
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp />} />
       <Route path="create-calendar" element={<CreateCalendar />} />

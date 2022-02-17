@@ -140,7 +140,7 @@ function Calendar() {
               dateNow={dateNow}
               i={i}
               findEvents={findEvents}
-              onClick={() => navigate(`/:${date.year}/:${date.month}`)}
+              onClick={() => navigate(`/:${date.year}/:${date.month}/:${i}`)}
             />
           );
         })}
