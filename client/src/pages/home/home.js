@@ -22,7 +22,9 @@ function Home() {
           </div>
           <img src={heroIllustration} alt="hero" className="h-64 xl:h-96" />
         </header>
+
         <div className="background-lines--home drop-shadow-lg absolute -mt-32 z-10"></div>
+
         <main className="flex flex-col justify-start gap-10 md:gap-56 mt-44 md:mt-64 items-center z-50">
           <section className="bg-purple flex flex-col gap-0 xl:gap-20 items-center rounded-xl mx-4 xl:mx-0 h-auto xl:h-72  self-start md:flex-row lg:flex-nowrap lg:w-11/12 lg:rounded-r-full z-50 xl:z-0">
             <img
@@ -43,6 +45,7 @@ function Home() {
               </p>
             </div>
           </section>
+
           <section className="bg-purple flex flex-col gap-0 xl:gap-20 items-center rounded-xl mx-4 xl:mx-0 h-auto xl:h-72 self-end md:flex-row lg:flex-nowrap lg:w-11/12 lg:rounded-l-full z-50 xl:z-0">
             <div className="w-auto p-8 xl:ml-28 xl:p-0 xl:w-2/5">
               <h2 className="text-3xl mb-2 font-semibold text-white">
@@ -61,6 +64,7 @@ function Home() {
               className="z-50 md:px-0 hidden md:block md:min-w-[400px]"
             />
           </section>
+
           <section className="bg-purple flex flex-col gap-0 xl:gap-20 items-center rounded-xl mx-4 xl:mx-0 h-auto xl:h-72 self-start md:flex-row lg:flex-nowrap lg:w-11/12 lg:rounded-r-full z-50 xl:z-0">
             <img
               src={waiting}
@@ -78,7 +82,8 @@ function Home() {
             </div>
           </section>
         </main>
-        <section className="flex mx-auto w-4/5 dark:bg-deepblackpurple shadow-2xl sm:shadow-none outline outline-4 outline-purple py-10 md:outline-none rounded-xl relative items-center justify-center text-center md:text-left md:justify-end md:items-center md:w-screen my-20 md:mt-32 md:mb-10 md:h-96 z-10">
+
+        <section className="flex mx-auto w-4/5 dark:bg-deepblackpurple bg-white shadow-2xl sm:shadow-none outline outline-4 outline-purple py-10 md:outline-none rounded-xl relative items-center justify-center text-center md:text-left md:justify-end md:items-center md:w-screen my-20 md:mt-32 md:mb-10 md:h-96 z-50">
           <div className="mx-auto flex flex-col flex-shrink items-center justify-center md:items-start md:justify-start w-4/6  md:ml-24">
             <div className="text-4xl mb-2 font-semibold text-purple ">
               Sounds good to you? <br />
