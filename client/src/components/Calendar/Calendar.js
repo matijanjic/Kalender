@@ -4,7 +4,8 @@ import { getCalendar } from '../../store/reducers/calendarReducer';
 import { useParams, useNavigate } from 'react-router-dom';
 import DayCard from '../DayCard/DayCard';
 
-// button for switching between months, prevOrNext string variable decides will it go forward or backwards
+// button for switching between months, prevOrNext string variable decides
+// will it go forward or backwards
 const BtnMonth = ({ date, setDate, prevOrNext }) => {
   let n;
   switch (prevOrNext) {
@@ -28,7 +29,7 @@ const BtnMonth = ({ date, setDate, prevOrNext }) => {
     </button>
   );
 };
-// component for displaying current month
+// component for displaying current month in locale string
 const CurrentMonth = ({ date }) => {
   return (
     <div className="font-bold text-3xl">
@@ -40,6 +41,10 @@ const CurrentMonth = ({ date }) => {
   );
 };
 
+// main calendar component which is used to show DayCards
+// and enables us to switch months and see events.
+// By clicking on the DayCard, it shows the event view for that day
+
 function Calendar() {
   const [date, setDate] = useState({ day: 0, month: 0, year: 0 });
   const [dateNow, setDateNow] = useState({ day: 0, month: 0, year: 0 });
@@ -48,9 +53,10 @@ function Calendar() {
   const events = useSelector((state) => state.calendar.events);
   const navigate = useNavigate();
 
-  // TODO dates in the middle, low opacity
   // TODO transition animation when changing months
   // TODO add dates to days from previous and next month
+
+  // parses the dates from the database to a Date object
   const parsedDateEvents = events.map((e) => {
     return {
       ...e,
@@ -58,6 +64,12 @@ function Calendar() {
     };
   });
   console.log(parsedDateEvents);
+
+  // gets a single calendar from the DB and sets it to redux state
+  // and initializes the current date and dateNow objects.
+  // They are both set to the same date initialy, but the date is
+  // altered when moving between months, and dateNow is used to
+  // have a reference to the current date.
 
   useEffect(() => {
     dispatch(getCalendar(params.calendarId));
@@ -72,15 +84,18 @@ function Calendar() {
       month: now.getMonth(),
       year: now.getFullYear(),
     });
-    // dates.forEach((date) => console.log(date.textContent));
   }, []);
 
+  // calculating how many days in the month.
+  // +1 is the next month, and the 0 days gets us the last day
+  // of the previous (actually current) month
   const daysInMonth = new Date(date.year, date.month + 1, 0).getDate();
   // calculating the first day of the week. + 6 is here because by Default Sunday is first and we need Monday
   let firstWeekdayOfMonth = new Date(date.year, date.month, 1).getDay() + 6;
   firstWeekdayOfMonth =
     firstWeekdayOfMonth >= 7 ? firstWeekdayOfMonth - 7 : firstWeekdayOfMonth;
 
+  // finds events that fall on the day requested
   const findEvents = (dayIndex) => {
     const event = parsedDateEvents.filter((e) => {
       if (
@@ -125,6 +140,7 @@ function Calendar() {
               dateNow={dateNow}
               i={i}
               findEvents={findEvents}
+              onClick={() => navigate(`/:${date.year}/:${date.month}`)}
             />
           );
         })}
