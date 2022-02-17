@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCalendar } from '../../store/reducers/calendarReducer';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import DayCard from '../DayCard/DayCard';
+
 // button for switching between months, prevOrNext string variable decides will it go forward or backwards
 const BtnMonth = ({ date, setDate, prevOrNext }) => {
   let n;
@@ -38,20 +40,13 @@ const CurrentMonth = ({ date }) => {
   );
 };
 
-const Modal = () => {
-  return (
-    <div className="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-purple w-1/2 h-5/6 z-30">
-      hehehe
-    </div>
-  );
-};
-
 function Calendar() {
   const [date, setDate] = useState({ day: 0, month: 0, year: 0 });
   const [dateNow, setDateNow] = useState({ day: 0, month: 0, year: 0 });
   const dispatch = useDispatch();
   const params = useParams();
   const events = useSelector((state) => state.calendar.events);
+  const navigate = useNavigate();
 
   // TODO dates in the middle, low opacity
   // TODO transition animation when changing months
@@ -124,43 +119,14 @@ function Calendar() {
         ))}
         {/* creating the month calendar with the current date as different color*/}
         {Array.from({ length: daysInMonth }, (_, i) => {
-          if (date.day === i + 1 && date.month === dateNow.month) {
-            return (
-              <div
-                key={i}
-                className="hover:scale-105 font-montserrat outline outline-2 outline-purple z-10 text-8xl font-bold w-full h-32 flex text-center  items-center justify-center transition-all ease-in-out duration-75 cursor-pointer"
-              >
-                <span key={i + 'span'} className="dates text-purple opacity-20">
-                  {i + 1}
-                </span>
-                <div key={i + 'div'} className="text-sm z-10 absolute">
-                  {findEvents(i).map((event) => (
-                    <div className="mb-1 text-left" key={event._id}>
-                      {event.name}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          } else {
-            return (
-              <div
-                key={i}
-                className="hover:scale-105 hover:shadow-xl font-montserrat outline outline-2 rounded-sm outline-pink text-pink text-8xl font-bold w-full h-32 flex text-center items-center justify-center transition-all ease-in-out duration-75 cursor-pointer"
-              >
-                <span key={i} className="dates opacity-10 absolute">
-                  {i + 1}
-                </span>
-                <div key={i + 'div'} className="text-sm z-10">
-                  {findEvents(i).map((event) => (
-                    <div key={event._id} className="mb-1 text-left pl-2">
-                      {event.name}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          }
+          return (
+            <DayCard
+              date={date}
+              dateNow={dateNow}
+              i={i}
+              findEvents={findEvents}
+            />
+          );
         })}
       </div>
     </>

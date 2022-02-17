@@ -1,0 +1,9 @@
+.day-card {
+  @apply hover:scale-105 text-purple rounded-sm font-montserrat outline outline-2 outline-purple z-10 text-8xl font-bold w-full h-32 flex text-center  items-center justify-center transition-all ease-in-out duration-75 cursor-pointer;
+}
+
+.day-card--current {
+  @apply day-card;
+  @apply outline-pink;
+  @apply text-pink;
+}
