@@ -4,10 +4,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Raleway:wght@400;500;700&display=swap');
 #root {
-  @apply bg-white dark:bg-gradient-to-br from-blackpurple to-deepblackpurple;
+  @apply bg-white dark:bg-deepblackpurple from-blackpurple to-deepblackpurple;
 }
 .nav-button {
-  @apply text-center hover:bg-purple flex-initial shrink px-6 py-2 rounded-md hover:text-white hover:shadow-md font-medium text-pink transition ease-in-out delay-75 active:bg-darkpurple;
+  @apply text-center  text-[12px] lg:text-xl hover:bg-purple  dark:bg-purple bg-pink text-white shrink px-6 py-2 rounded-md hover:text-white hover:shadow-md font-medium lg:text-pink lg:bg-transparent transition ease-in-out delay-75 active:bg-darkpurple;
 }
 
 .nav-button-calendar {
@@ -15,11 +15,11 @@
 }
 
 .nav-button-active {
-  @apply text-center hover:bg-purple flex-initial shrink px-6 py-2 rounded-md hover:text-white hover:shadow-md font-medium text-purple underline transition ease-in-out delay-75 active:bg-darkpurple;
+  @apply text-center text-[12px] lg:text-xl hover:bg-purple dark:bg-pink bg-purple text-white lg:bg-transparent flex-initial shrink px-6 py-2 rounded-md hover:text-white hover:shadow-md font-medium lg:text-purple underline transition ease-in-out delay-75 active:bg-darkpurple;
 }
 
 .nav-button-logout {
-  @apply text-center hover:bg-pink hover:outline-pink flex-initial shrink px-6 py-1 rounded-md hover:text-white hover:shadow-md font-medium text-purple ml-4 transition ease-in-out delay-75 outline outline-2 outline-purple;
+  @apply text-center text-[12px] lg:text-xl hover:bg-pink hover:outline-pink flex-initial shrink px-6 py-1 rounded-md hover:text-white hover:shadow-md font-medium text-purple transition ease-in-out delay-75 outline outline-2 outline-purple;
 }
 
 .main-button-pink {
@@ -35,9 +35,9 @@
 }
 
 h3 {
-  @apply text-3xl font-bold text-purple mb-2;
+  @apply text-4xl font-bold text-purple mb-2;
 }
 
 h1 {
-  @apply text-6xl font-bold text-purple mb-2;
+  @apply text-4xl md:text-5xl xl:text-6xl font-bold text-purple mb-2;
 }

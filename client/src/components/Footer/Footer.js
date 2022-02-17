@@ -3,7 +3,7 @@ import whiteLogo from '../../pages/resources/logo_white.svg';
 
 function Footer() {
   return (
-    <footer className="bg-pink w-screen h-72 flex flex-row justify-around items-center">
+    <footer className="bg-pink w-screen p-20 gap-16 h-auto flex flex-col sm:flex-row justify-around items-center text-center sm:text-left sm:items-center">
       <img alt="logo" src={whiteLogo} className="w-40" />
       <div>
         <span className="font-bold text-white">created by:</span>

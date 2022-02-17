@@ -18,25 +18,25 @@ function Navbar({ children }) {
   if (!user) {
     return (
       <div>
-        <nav className="xl:flex flex-row flex-wrap h-18 p-6 pt-16 px-28 justify-between items-center">
+        <nav className="flex flex-col mx-auto gap-8 justify-items-center  lg:w-auto lg:flex-row flex-wrap h-18 p-6 pt-16 lg:px-28 justify-between items-center">
           <img
             src={logoImg}
             alt="Kalen logo"
-            className="m-auto mt-6 xl:m-0 cursor-pointer"
+            className="cursor-pointer"
             onClick={() => navigate('/')}
           />
-          <ul className="md:flex flex-row flex-wrap gap-12 text-xl mt-11 xl:mt-0  ">
-            <li className="mb-3 xl:mb-0 text-center">
+          <ul className="flex gap-6 mt-4 sm:flex-row md:mt-0 items-center sm:gap-12">
+            <li>
               <CustomLink to="/login" className="nav-button">
                 log in
               </CustomLink>
             </li>
-            <li className="text-center mb-3 xl:mb-0">
+            <li>
               <CustomLink to="/signup" className="nav-button">
                 sign up
               </CustomLink>
             </li>
-            <li className="text-center mb-3 xl:mb-0">
+            <li>
               <CustomLink to="/about" className="nav-button">
                 about
               </CustomLink>
@@ -52,25 +52,25 @@ function Navbar({ children }) {
 
   return (
     <div>
-      <nav className="xl:flex flex-row flex-wrap h-18 p-6 pt-16 px-28 justify-between items-center">
+      <nav className="flex flex-col mx-auto gap-8 justify-items-center  lg:w-auto lg:flex-row flex-wrap h-18 p-6 pt-16 lg:px-28 justify-between items-center">
         <img
           src={logoImg}
           alt="Kalen logo"
-          className="m-auto mt-6 xl:m-0 cursor-pointer"
+          className="m-0 cursor-pointer"
           onClick={() => navigate('/')}
         />
-        <ul className="md:flex items-baseline flex-row flex-wrap gap-12 text-xl mt-11 xl:mt-0  ">
-          <li className="text-center mb-3 xl:mb-0">
+        <ul className="flex gap-6 mt-4 sm:flex-row md:mt-0 items-center sm:gap-12">
+          <li>
             <CustomLink to="/calendars" className="nav-button">
               calendars
             </CustomLink>
           </li>
-          <li className="text-center mb-3 xl:mb-0">
+          <li>
             <CustomLink to="/create-calendar" className="nav-button">
               create new
             </CustomLink>
           </li>
-          <li className="text-center mb-3 xl:mb-0">
+          <li>
             <button className="nav-button-logout" onClick={logout}>
               logout
             </button>
