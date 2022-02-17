@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCalendar } from '../../store/reducers/calendarReducer';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Outlet } from 'react-router-dom';
 import DayCard from '../DayCard/DayCard';
 
 // button for switching between months, prevOrNext string variable decides
@@ -111,7 +111,6 @@ function Calendar() {
 
   return (
     <>
-      {/* <Modal /> */}
       <div className="flex flex-row justify-center items-baseline text-purple gap-4 mb-20 text-center mt-20">
         <BtnMonth date={date} setDate={setDate} prevOrNext={'prev'} />
         <CurrentMonth date={date} />

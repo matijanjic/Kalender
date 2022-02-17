@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkLocalStorage } from '../store/reducers/loginReducer';
 import CalendarNavbar from '../components/CalendarNavbar/CalendarNavbar';
@@ -17,9 +17,11 @@ function CalendarView() {
   const events = calendar.events;
 
   return (
-    <CalendarNavbar>
+    <>
+      <Outlet />
+      <CalendarNavbar />
       {calendar.events ? <Calendar events={events} /> : null}
-    </CalendarNavbar>
+    </>
   );
 }
 

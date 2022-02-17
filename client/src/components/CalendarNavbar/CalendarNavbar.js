@@ -21,7 +21,6 @@ function CalendarNavbar({ children }) {
         <button className="nav-button-calendar">remove user</button>
         <button className="nav-button-calendar">delete calendar</button>
       </nav>
-      {children}
     </>
   );
 }

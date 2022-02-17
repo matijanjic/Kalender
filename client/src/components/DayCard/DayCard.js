@@ -18,7 +18,7 @@ function DayCard({ date, dateNow, i, findEvents }) {
       key={i}
       className={style}
       onClick={() =>
-        navigate(`/?year=${date.year}&month=${date.month}&day=${i}`)
+        navigate(`events?year=${date.year}&month=${date.month}&day=${i}`)
       }
     >
       <span key={i + 'span'} className="dates opacity-20">
