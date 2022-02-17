@@ -54,5 +54,8 @@ SECRET = Any string used for JWT hashing
 ```
 
 You can see it live at: https://kalen-fullstack.herokuapp.com/
+You can log in with a dummy credentials:
+username1
+password1
 
 Thanks to Mars for heroku-cra-node template, helped me a ton since I started with one shared repository with both frontend and backend inside https://github.com/mars/heroku-cra-node
