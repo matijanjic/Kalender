@@ -51,7 +51,6 @@ function Calendar() {
   const dispatch = useDispatch();
   const params = useParams();
   const events = useSelector((state) => state.calendar.events);
-  const navigate = useNavigate();
 
   // TODO transition animation when changing months
   // TODO add dates to days from previous and next month
@@ -140,7 +139,6 @@ function Calendar() {
               dateNow={dateNow}
               i={i}
               findEvents={findEvents}
-              onClick={() => navigate(`/:${date.year}/:${date.month}/:${i}`)}
             />
           );
         })}

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CalendarCard from '../components/CalendarCard/CalendarCard';
 import { getCalendars } from '../store/reducers/calendarsReducer';
+import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 
 function CalendarList() {
@@ -13,6 +14,7 @@ function CalendarList() {
 
   return (
     <Navbar>
+      <Outlet />
       <div>
         <div className="background--lines--1 drop-shadow-xl"></div>
         {calendars.length !== 0 ? (

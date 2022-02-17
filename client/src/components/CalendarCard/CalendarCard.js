@@ -33,7 +33,7 @@ function CalendarCard({ calendar }) {
     <div
       className="calendar-card"
       style={animationStyle}
-      onClick={() => navigate(`/calendars/${calendar.id}`)}
+      onClick={() => navigate(`${calendar.id}`)}
     >
       <div className="calendar-card--name">{calendar.name}</div>
       <div className="py-6">

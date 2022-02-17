@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './DayCard.css';
 
 function DayCard({ date, dateNow, i, findEvents }) {
+  const navigate = useNavigate();
   // if the day is today, style the card differently
   let style;
   if (date.day === i + 1 && date.month === dateNow.month) {
@@ -12,7 +14,13 @@ function DayCard({ date, dateNow, i, findEvents }) {
   console.log(date.day, i + 1, style);
 
   return (
-    <div key={i} className={style}>
+    <div
+      key={i}
+      className={style}
+      onClick={() =>
+        navigate(`/?year=${date.year}&month=${date.month}&day=${i}`)
+      }
+    >
       <span key={i + 'span'} className="dates opacity-20">
         {i + 1}
       </span>

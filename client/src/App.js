@@ -34,8 +34,9 @@ function App() {
       <Route
         path="calendars"
         element={user ? <Calendars /> : <Navigate replace to="/login" />}
-      />
-      <Route path="calendars/:calendarId" element={<CalendarView />} />
+      >
+        <Route path=":calendarId" element={<CalendarView />} />
+      </Route>
       <Route path="calendar/:year/:month/:day" element={<div>hello</div>} />
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp />} />
