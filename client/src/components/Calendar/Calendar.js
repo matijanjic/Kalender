@@ -122,7 +122,7 @@ function Calendar({ events }) {
         <div>Sunday</div>
       </div>
       {/* empty days before first day of the month */}
-      <div className="grid grid-cols-7 grid-rows-4 gap-2 w-5/6 mx-auto">
+      <div className="grid grid-cols-7 grid-rows-4 gap-2 w-5/6 mx-auto mb-32">
         {Array.from({ length: firstWeekdayOfMonth }, (_, i) => (
           <div key={i} className="w-full h-32"></div>
         ))}
