@@ -1,13 +1,17 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './CalendarNavbar.css';
 
 function CalendarNavbar({ children }) {
-  const calendar = useSelector((state) => state.calendar);
+  const params = useParams();
+  const calendar = useSelector((state) =>
+    state.calendars.find((c) => c.id === params.calendarId),
+  );
+
   const navigate = useNavigate();
   // add event, remove event, add user, remove user, delete calendar
-  return (
+  return !calendar ? null : (
     <>
       <nav className="xl:flex flex-row gap-8 flex-wrap h-24 p-6 px-14 justify-between items-center bg-purple">
         <button

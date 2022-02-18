@@ -136,6 +136,7 @@ function Calendar({ events }) {
               dateNow={dateNow}
               i={i}
               findEvents={findEvents}
+              key={i}
             />
           );
         })}
