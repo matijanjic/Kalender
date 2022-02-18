@@ -2,14 +2,9 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CalendarCard from '../components/CalendarCard/CalendarCard';
 import { getCalendars } from '../store/reducers/calendarsReducer';
-import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 
 function CalendarList() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCalendars());
-  }, [dispatch]);
   const calendars = useSelector((state) => state.calendars);
 
   return (

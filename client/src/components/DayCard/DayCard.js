@@ -4,6 +4,7 @@ import './DayCard.css';
 
 function DayCard({ date, dateNow, i, findEvents }) {
   const navigate = useNavigate();
+
   // if the day is today, style the card differently
   let style;
   if (date.day === i + 1 && date.month === dateNow.month) {
@@ -11,7 +12,6 @@ function DayCard({ date, dateNow, i, findEvents }) {
   } else {
     style = 'day-card';
   }
-  console.log(date.day, i + 1, style);
 
   return (
     <div
@@ -21,7 +21,7 @@ function DayCard({ date, dateNow, i, findEvents }) {
         navigate(`events?year=${date.year}&month=${date.month}&day=${i}`)
       }
     >
-      <span key={i + 'span'} className="dates opacity-20">
+      <span key={i + 'span'} className="dates opacity-20 inset">
         {i + 1}
       </span>
       <div key={i + 'div'} className="text-sm z-10 absolute">

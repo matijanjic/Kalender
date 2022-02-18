@@ -1,26 +1,25 @@
-import React, { useEffect } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { checkLocalStorage } from '../store/reducers/loginReducer';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import CalendarNavbar from '../components/CalendarNavbar/CalendarNavbar';
 import Calendar from '../components/Calendar/Calendar';
-import { getCalendar } from '../store/reducers/calendarReducer';
+import Footer from '../components/Footer/Footer';
 
 function CalendarView() {
   const params = useParams();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(checkLocalStorage());
-    dispatch(getCalendar(params.calendarId));
-  }, []);
-  const calendar = useSelector((state) => state.calendar);
-  const events = calendar.events;
+  const calendar = useSelector((state) =>
+    state.calendars.find((c) => c.id === params.calendarId),
+  );
 
   return (
     <>
-      <Outlet />
       <CalendarNavbar />
-      {calendar.events ? <Calendar events={events} /> : null}
+      {calendar?.events ? (
+        <Calendar events={calendar.events} />
+      ) : (
+        <div className="h-screen"></div>
+      )}
+      <Footer />
     </>
   );
 }

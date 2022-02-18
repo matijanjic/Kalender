@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getCalendar } from '../../store/reducers/calendarReducer';
-import { useParams, useNavigate, Outlet } from 'react-router-dom';
 import DayCard from '../DayCard/DayCard';
 
 // button for switching between months, prevOrNext string variable decides
@@ -45,12 +42,12 @@ const CurrentMonth = ({ date }) => {
 // and enables us to switch months and see events.
 // By clicking on the DayCard, it shows the event view for that day
 
-function Calendar() {
+function Calendar({ events }) {
   const [date, setDate] = useState({ day: 0, month: 0, year: 0 });
   const [dateNow, setDateNow] = useState({ day: 0, month: 0, year: 0 });
-  const dispatch = useDispatch();
-  const params = useParams();
-  const events = useSelector((state) => state.calendar.events);
+  const [daySelected, setDaySelected] = useState(false);
+
+  console.log(...events);
 
   // TODO transition animation when changing months
   // TODO add dates to days from previous and next month
@@ -71,7 +68,6 @@ function Calendar() {
   // have a reference to the current date.
 
   useEffect(() => {
-    dispatch(getCalendar(params.calendarId));
     const now = new Date();
     setDate({
       day: now.getDate(),
@@ -116,7 +112,7 @@ function Calendar() {
         <CurrentMonth date={date} />
         <BtnMonth date={date} setDate={setDate} prevOrNext={'next'} />
       </div>
-      <div className="grid grid-cols-7 grid-rows-4 w-5/6 h-10 text-center mx-auto font-montserrat uppercase font-bold text-blackpurple">
+      <div className="grid grid-cols-7 dark:text-purple grid-rows-4 w-5/6 h-10 text-center mx-auto font-montserrat uppercase font-bold text-blackpurple">
         <div>Monday</div>
         <div>Tuesday</div>
         <div>Wednesday</div>
@@ -134,6 +130,8 @@ function Calendar() {
         {Array.from({ length: daysInMonth }, (_, i) => {
           return (
             <DayCard
+              daySelected={daySelected}
+              setDaySelected={setDaySelected}
               date={date}
               dateNow={dateNow}
               i={i}

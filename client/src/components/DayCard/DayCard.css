@@ -7,3 +7,7 @@
   @apply outline-pink;
   @apply text-pink;
 }
+
+.day-card--zoomed {
+  @apply hover:scale-105 text-purple rounded-sm font-montserrat outline outline-2 outline-purple text-8xl font-bold  flex text-center  items-center justify-center transition-all ease-in-out duration-75 cursor-pointer mx-auto inset-x-0 w-3/5 h-3/5 fixed bg-white z-50;
+}
