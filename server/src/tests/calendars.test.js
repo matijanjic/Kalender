@@ -333,6 +333,7 @@ describe('adding an event', () => {
     const event = {
       name: 'test_event',
       date: Date.now(),
+      end: new Date(Date.now() + 2000000),
     };
     await api
       .post(`/api/calendars/${calendars[0].id}/events`)
@@ -346,6 +347,7 @@ describe('adding an event', () => {
     const event = {
       name: 'test_event',
       date: Date.now(),
+      end: new Date(Date.now() + 2000000),
     };
     await api
       .post(`/api/calendars/${calendars[1].id}/events`)
@@ -359,6 +361,7 @@ describe('adding an event', () => {
     const event = {
       name: 'test_event',
       date: Date.now(),
+      end: new Date(Date.now() + 2000000),
     };
     await api
       .post(`/api/calendars/${calendars[0].id}/events`)
@@ -371,6 +374,7 @@ describe('adding an event', () => {
     const event = {
       name: 'test_event',
       date: Date.now(),
+      end: new Date(Date.now() + 2000000),
     };
     await api
       .post(`/api/calendars/${calendars[0].id}/events`)
@@ -388,6 +392,7 @@ describe('adding an event', () => {
     const event = {
       name: 'test_event',
       date: Date.now(),
+      end: new Date(Date.now() + 2000000),
     };
     await api
       .post(`/api/calendars/${wrongId}/events`)

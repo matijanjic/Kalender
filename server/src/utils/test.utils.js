@@ -35,10 +35,12 @@ const initialEvents = [
   {
     name: 'Small get-together',
     date: new Date(2022, 4, 21, 22, 0),
+    end: new Date(2022, 4, 23, 22, 0),
   },
   {
     name: 'Birthday party',
     date: new Date(2022, 0, 2, 20, 0),
+    end: new Date(2022, 0, 2, 23, 0),
   },
 ];
 

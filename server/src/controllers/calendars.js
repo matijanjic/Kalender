@@ -46,7 +46,7 @@ const removeCalendar = async (req, res) => {
   }
 };
 
-// add an update calendar function for changing the name
+// TODO add an update calendar function for changing the name
 
 // gets a specific calendar
 const getCalendar = async (req, res) => {
@@ -65,6 +65,7 @@ const addEvent = async (req, res) => {
   const event = req.body;
   event.creator = req.user.id;
   event.users = event.users ? [...event.users, req.user.id] : [req.user.id];
+  event.users = Array.from(new Set([...event.users]));
   // find the calendar and add the event to it
   const calendar = await Calendar.findById(calendarId);
   if (!calendar) {
@@ -76,6 +77,9 @@ const addEvent = async (req, res) => {
     );
   }
   calendar.events.push(event);
+  calendar.users = [
+    ...new Set([...calendar.users, ...event.users].map((u) => u.toString())),
+  ];
   const savedCalendar = await calendar.save();
 
   res.json(_.last(savedCalendar.events));
