@@ -51,12 +51,14 @@ function EventsView() {
           console.log(new Date(e.date).getHours(), new Date(e.end).getHours());
           const start = new Date(e.date).getHours();
           const end = new Date(e.end).getHours();
-
+          const style = {
+            gridRowStart: start,
+            gridRowEnd: end,
+            gridColumnStart: 2,
+            width: 400,
+          };
           return (
-            <div
-              key={e.name}
-              className={`row-start-${start} row-end-${end} col-start-2 bg-pink self-stretch flex flex-col items-center justify-center px-4`}
-            >
+            <div key={e.name} style={style} className="bg-pink">
               {e.name}
             </div>
           );
