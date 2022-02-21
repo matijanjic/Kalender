@@ -47,8 +47,6 @@ function Calendar({ events }) {
   const [dateNow, setDateNow] = useState({ day: 0, month: 0, year: 0 });
   const [daySelected, setDaySelected] = useState(false);
 
-  console.log(...events);
-
   // TODO transition animation when changing months
   // TODO add dates to days from previous and next month
 
@@ -59,7 +57,6 @@ function Calendar({ events }) {
       date: new Date(e.date),
     };
   });
-  console.log(parsedDateEvents);
 
   // gets a single calendar from the DB and sets it to redux state
   // and initializes the current date and dateNow objects.
