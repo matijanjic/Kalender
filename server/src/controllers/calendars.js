@@ -77,6 +77,7 @@ const addEvent = async (req, res) => {
     );
   }
   calendar.events.push(event);
+  // adds all event users to the calendar users and removes duplicates
   calendar.users = [
     ...new Set([...calendar.users, ...event.users].map((u) => u.toString())),
   ];
