@@ -21,10 +21,11 @@ function DayCard({ date, dateNow, i, findEvents }) {
         navigate(`events?year=${date.year}&month=${date.month}&day=${i + 1}`)
       }
     >
-      <span key={i + 'span'} className="dates opacity-20 inset">
+      <span key={i + 'span'} className="dates opacity-20">
         {i + 1}
       </span>
-      <div key={i + 'div'} className="text-sm z-10 absolute">
+      <div key={i + 'div'} className="text-xs px-1 z-10 absolute">
+        {/* TODO add so it only shows events user is part of */}
         {findEvents(i).map((event) => (
           <div className="mb-1 text-left" key={event._id}>
             {event.name}

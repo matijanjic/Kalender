@@ -1,5 +1,6 @@
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  darkMode: false,
   theme: {
     fontFamily: {
       sans: ['ui-sans-serif', 'Raleway'],
