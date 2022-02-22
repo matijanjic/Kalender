@@ -38,7 +38,7 @@ function EventsView() {
   console.log(events);
 
   return !events ? null : (
-    <div className="ml-4 mt-4">
+    <div className="ml-4  mt-4">
       <div className="absolute opacity-20">
         {Array.from({ length: 24 }, (_, i) => (
           <div
