@@ -19,7 +19,7 @@
     "dev": "NODE_ENV=development nodemon ./server/src/index.js",
     "test": "NODE_ENV=test jest --verbose --runInBand",
     "lint": "eslint --ext .js .",
-    "deploy": "git add . && git commit -m fullBuild && git push heroku && git push",
+    "deploy": "git add . && git commit -m fullBuild && git push heroku",
     "logs:prod": "heroku logs --tail"
   },
   "author": "Matija Janjic",
