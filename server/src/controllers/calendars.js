@@ -7,7 +7,7 @@ const ApiError = require('../utils/ApiError');
 const getCalendars = async (req, res) => {
   const { user } = req;
 
-  const calendars = await Calendar.find({ users: user._id });
+  const calendars = await Calendar.find({ users: user._id }).populate('users');
   console.log(calendars);
 
   res.json(calendars);

@@ -32,5 +32,12 @@ const getCalendar = async (id) => {
   return response.data;
 };
 
+const getEvents = async (id) => {
+  const config = getConfig();
+  const response = await axios.get(`${baseUrl}/${id}/events`, config);
+
+  return response.data;
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getCalendars, addCalendar, getCalendar };
+export default { getCalendars, addCalendar, getCalendar, getEvents };

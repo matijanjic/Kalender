@@ -41,9 +41,6 @@ function App() {
 
   return (
     <>
-      {/* just to trigger main app rerender and refetch data TODO look into making this another way  */}
-      <span></span>
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
