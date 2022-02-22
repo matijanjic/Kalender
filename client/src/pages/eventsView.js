@@ -46,12 +46,11 @@ function EventsView() {
       <div className="ml-4 mt-32 mb-32 relative w-fit px-10">
         {/* responsible for showing the user names above */}
         <div style={style} className="sticky top-2 z-20">
+          <div className="col-start-1"></div>
           {calendar.users.map((u, i) => (
             <div
               key={u.username}
-              className={`col-start-${
-                i + 2
-              } text-center font-bold text-white bg-purple rounded-xl text-xl`}
+              className={` text-center font-bold text-white bg-purple rounded-xl text-xl`}
             >
               {u.name}
             </div>
