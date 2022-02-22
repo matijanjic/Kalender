@@ -40,23 +40,33 @@ function EventsView() {
   return !events || !calendar ? null : (
     <>
       <CalendarNavbar />
+      <header className="text-3xl font-bold font-montserrat text-pink text-center mt-12">
+        {day} / {month} / {year}
+      </header>
       {/* TODO fix the back button on the navbar so it leads to the previous page*/}
       {/* TODO keep the events panel fixed size, add scrolling so the space to the right can be reserved for editing events*/}
 
-      <div className="ml-4 mt-32 mb-32 relative w-fit px-10">
-        {/* responsible for showing the user names above */}
+      <div className="ml-4 mt-16 mb-32 relative w-fit px-10">
+        {/* responsible for showing the user names above the columns*/}
         <div style={style} className="sticky top-2 z-20">
           <div className="col-start-1"></div>
           {calendar.users.map((u, i) => (
             <div
               key={u.username}
-              className={` text-center font-bold text-white bg-purple rounded-xl text-xl`}
+              className={`text-center shadow-xl font-bold text-white rounded-xl text-xl py-2 ${
+                i === 0 ? 'bg-pink' : 'bg-purple'
+              }`}
             >
-              {u.name}
+              {i === 0
+                ? 'My events'
+                : u.username !== user.username
+                ? u.name
+                : null}
             </div>
           ))}
         </div>
 
+        {/* background lines */}
         <div className="absolute opacity-20 w-full">
           {Array.from({ length: 24 }, (_, i) => (
             <div
@@ -65,15 +75,19 @@ function EventsView() {
             ></div>
           ))}
         </div>
+
+        {/* hours */}
         <div style={style} className="justify-start">
           {Array.from({ length: 24 }, (_, i) => (
             <div
               key={i}
-              className="bg-purple w-16 h-8 odd:opacity-90 rounded-l-2xl rounded-r-md pl-4 col-start-1 font-montserrat font-bold pt-1 text-deepblackpurple"
+              className="bg-purple w-16 h-8 odd:opacity-90 rounded-l-2xl text-right rounded-r-md pr-3 col-start-1 font-montserrat font-bold pt-1 text-white"
             >
-              {String(i).padStart(2, '0')}
+              {String(i).padStart(2, '0')} h
             </div>
           ))}
+
+          {/* showing events */}
           {events.map((e) => {
             const start = new Date(e.date).getHours();
             const end = new Date(e.end).getHours();
@@ -81,19 +95,23 @@ function EventsView() {
               gridRowStart: start,
               gridRowEnd: end,
               gridColumnStart: `${
-                e.creator.username === user.username
+                e.users.some((u) => u.username === user.username)
                   ? 2
                   : calendar.users.findIndex(
                       (u) => u.username === e.creator.username,
                     ) + 2
               }`,
-              width: 200,
+              width: 'auto',
             };
             return (
               <div
                 key={e.name}
                 style={style}
-                className="bg-pink z-10 rounded-xl flex text-center items-center justify-center px-1 text-white font-bold shadow-md"
+                className={`z-10 rounded-xl flex text-center items-center justify-center px-1 text-white font-bold shadow-md ${
+                  e.users.some((u) => u.username === user.username)
+                    ? 'bg-pink'
+                    : 'bg-purple'
+                }`}
               >
                 <div>{e.name}</div>
               </div>
