@@ -18,7 +18,8 @@ function EventsView() {
   const calendar = useSelector((state) =>
     state.calendars.find((c) => c.id === params.calendarId),
   );
-
+  // setting the event calendar grid programatically depending on the number of users.
+  // + 1 is because the hours column takes one space
   const style = calendar
     ? {
         display: 'grid',
@@ -29,11 +30,21 @@ function EventsView() {
 
   useEffect(() => {
     if (user) {
-      calendarService
-        .getEvents(params.calendarId)
-        .then((events) =>
-          setEvents(events.filter((e) => new Date(e.date).getDate() === day)),
-        );
+      // set the events to events from day that matches current day user is viewing
+      calendarService.getEvents(params.calendarId).then((events) =>
+        setEvents(
+          events.filter((e) => {
+            const eventDate = new Date(e.date);
+            if (
+              eventDate.getFullYear() === year &&
+              eventDate.getMonth() === month &&
+              eventDate.getDate() === day
+            ) {
+              return e;
+            }
+          }),
+        ),
+      );
     }
   }, [user]);
 
@@ -53,15 +64,18 @@ function EventsView() {
           {calendar.users.map((u, i) => (
             <div
               key={u.username}
-              className={`text-center shadow-xl font-bold text-white rounded-xl text-xl py-2 ${
+              className={`text-center flex justify-center items-center shadow-xl font-bold text-white rounded-xl text-xl py-2 ${
                 i === 0 ? 'bg-pink' : 'bg-purple'
               }`}
             >
-              {i === 0
-                ? 'My events'
-                : u.username !== user.username
-                ? u.name
-                : null}
+              {i === 0 ? (
+                <div>My events</div>
+              ) : u.username !== user.username ? (
+                <div>
+                  <div>{u.name}</div>
+                  <div className="text-sm">{u.username}</div>
+                </div>
+              ) : null}
             </div>
           ))}
         </div>
@@ -71,7 +85,7 @@ function EventsView() {
           {Array.from({ length: 24 }, (_, i) => (
             <div
               key={i}
-              className="bg-purple rounded-l-2xl w-full even:opacity-30 h-8 pl-4 col-start-1"
+              className="bg-purple rounded-l-2xl rounded-r-2xl w-full even:opacity-30 h-8 pl-4 col-start-1"
             ></div>
           ))}
         </div>
@@ -81,7 +95,7 @@ function EventsView() {
           {Array.from({ length: 24 }, (_, i) => (
             <div
               key={i}
-              className="bg-purple w-16 h-8 odd:opacity-90 rounded-l-2xl text-right rounded-r-md pr-3 col-start-1 font-montserrat font-bold pt-1 text-white"
+              className="bg-purple w-16 h-8 odd:opacity-90 rounded-l-2xl text-right pr-3 col-start-1 font-montserrat font-bold pt-1 text-white"
             >
               {String(i).padStart(2, '0')} h
             </div>
