@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import calendarService from '../services/calendar';
 import CalendarNavbar from '../components/CalendarNavbar/CalendarNavbar';
 import Footer from '../components/Footer/Footer';
-import Modal from '../components/Modal/Modal';
+import EventModal from '../components/EventModal/EventModal';
 
 function EventsView() {
   const params = useParams();
@@ -12,6 +12,7 @@ function EventsView() {
   const [show, setShow] = useState(false);
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState({});
+  const [modalNotification, setModalNotification] = useState(false);
 
   const [searchParams] = useSearchParams();
   const year = parseInt(searchParams.get('year'));
@@ -53,7 +54,13 @@ function EventsView() {
 
   return !calendar ? null : (
     <div className="relative">
-      <Modal selectedEvent={selectedEvent} show={show} setShow={setShow} />
+      <EventModal
+        selectedEvent={selectedEvent}
+        show={show}
+        setShow={setShow}
+        setModalNotification={setModalNotification}
+        modalNotification={modalNotification}
+      />
       <CalendarNavbar />
 
       <header className="text-3xl font-bold font-montserrat text-pink text-center mt-12">
@@ -126,12 +133,25 @@ function EventsView() {
                   <div
                     key={e.name + u.username}
                     style={style}
-                    className={`z-10 rounded-xl flex text-center items-center justify-center px-1 text-white font-bold shadow-md ${
+                    className={`hover:scale-105 cursor-pointer transition-transform ease-in-out duration-75 z-10 rounded-xl flex text-center items-center justify-center px-1 text-white font-bold shadow-md ${
                       u.username === user.username ? 'bg-pink' : 'bg-purple'
                     }`}
                     onClick={() => {
-                      setSelectedEvent(e);
-                      setShow(!show);
+                      if (!modalNotification) {
+                        setSelectedEvent(e);
+                        setShow(!show);
+                      } else {
+                        const notif = document.querySelector(
+                          '.modal-notification',
+                        );
+                        console.log(notif);
+
+                        notif.classList.add('shake');
+                        console.log(notif);
+                        setTimeout(() => {
+                          notif.classList.remove('shake');
+                        }, 1000);
+                      }
                     }}
                   >
                     <div>{e.name}</div>
@@ -141,6 +161,17 @@ function EventsView() {
             });
           })}
         </div>
+      </div>
+      <div
+        className={`modal-notification fixed right-4 bottom-4 h-20 w-fit px-4 text-white font-bold cursor-pointer hover:scale-105 shadow-xl rounded-full flex justify-center items-center bg-purple ${
+          modalNotification ? null : 'hidden'
+        }`}
+        onClick={() => {
+          setShow(true);
+          setModalNotification(false);
+        }}
+      >
+        continue editing
       </div>
 
       <Footer />

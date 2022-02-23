@@ -41,3 +41,27 @@ h3 {
 h1 {
   @apply text-4xl md:text-5xl xl:text-6xl font-bold text-purple mb-2;
 }
+
+.shake {
+  animation-duration: 0.2s;
+  animation-name: fast-shake;
+  animation-iteration-count: 2;
+}
+
+@keyframes fast-shake {
+  from {
+    transform: translateX(-10px);
+  }
+
+  75% {
+    transform: translateX(7px);
+  }
+
+  50% {
+    transform: translateX(-4px);
+  }
+
+  to {
+    transform: translate(0px);
+  }
+}
