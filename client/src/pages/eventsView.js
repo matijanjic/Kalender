@@ -4,12 +4,14 @@ import { useSelector } from 'react-redux';
 import calendarService from '../services/calendar';
 import CalendarNavbar from '../components/CalendarNavbar/CalendarNavbar';
 import Footer from '../components/Footer/Footer';
+import Modal from '../components/Modal/Modal';
 
 function EventsView() {
   const params = useParams();
   const user = useSelector((state) => state.login);
-
+  const [show, setShow] = useState(false);
   const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState({});
 
   const [searchParams] = useSearchParams();
   const year = parseInt(searchParams.get('year'));
@@ -23,8 +25,8 @@ function EventsView() {
   const style = calendar
     ? {
         display: 'grid',
-        gridTemplateColumns: `6rem repeat(${calendar.users.length + 1}, 200px)`,
-        gap: '0 2em',
+        gridTemplateColumns: `6rem repeat(${calendar.users.length + 1}, 12em)`,
+        gap: '0 1em',
       }
     : null;
 
@@ -50,14 +52,15 @@ function EventsView() {
   console.log(events);
 
   return !calendar ? null : (
-    <>
+    <div className="relative">
+      <Modal selectedEvent={selectedEvent} show={show} setShow={setShow} />
       <CalendarNavbar />
+
       <header className="text-3xl font-bold font-montserrat text-pink text-center mt-12">
         {day} / {month} / {year}
       </header>
       {/* TODO fix the back button on the navbar so it leads to the previous page*/}
       {/* TODO keep the events panel fixed size, add scrolling so the space to the right can be reserved for editing events*/}
-
       <div className="ml-4 mt-16 mb-32 relative w-fit px-10">
         {/* responsible for showing the user names above the columns*/}
         <div style={style} className="sticky top-2 z-20">
@@ -126,6 +129,10 @@ function EventsView() {
                     className={`z-10 rounded-xl flex text-center items-center justify-center px-1 text-white font-bold shadow-md ${
                       u.username === user.username ? 'bg-pink' : 'bg-purple'
                     }`}
+                    onClick={() => {
+                      setSelectedEvent(e);
+                      setShow(!show);
+                    }}
                   >
                     <div>{e.name}</div>
                   </div>
@@ -135,8 +142,9 @@ function EventsView() {
           })}
         </div>
       </div>
+
       <Footer />
-    </>
+    </div>
   );
 }
 
