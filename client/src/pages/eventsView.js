@@ -47,8 +47,9 @@ function EventsView() {
       );
     }
   }, [user]);
+  console.log(events);
 
-  return !events || !calendar ? null : (
+  return !calendar ? null : (
     <>
       <CalendarNavbar />
       <header className="text-3xl font-bold font-montserrat text-pink text-center mt-12">
@@ -102,34 +103,35 @@ function EventsView() {
           ))}
 
           {/* showing events */}
-          {events.map((e) => {
-            const start = new Date(e.date).getHours();
-            const end = new Date(e.end).getHours();
-            const style = {
-              gridRowStart: start,
-              gridRowEnd: end,
-              gridColumnStart: `${
-                e.users.some((u) => u.username === user.username)
-                  ? 2
-                  : calendar.users.findIndex(
-                      (u) => u.username === e.creator.username,
+          {calendar.users.map((u) => {
+            return events.map((e) => {
+              if (e.users.some((evUser) => evUser.username === u.username)) {
+                const start = new Date(e.date).getHours();
+                const end = new Date(e.end).getHours();
+                const style = {
+                  gridRowStart: start,
+                  gridRowEnd: end,
+                  gridColumnStart: `${
+                    calendar.users.findIndex(
+                      (calUser) => calUser.username === u.username,
                     ) + 2
-              }`,
-              width: 'auto',
-            };
-            return (
-              <div
-                key={e.name}
-                style={style}
-                className={`z-10 rounded-xl flex text-center items-center justify-center px-1 text-white font-bold shadow-md ${
-                  e.users.some((u) => u.username === user.username)
-                    ? 'bg-pink'
-                    : 'bg-purple'
-                }`}
-              >
-                <div>{e.name}</div>
-              </div>
-            );
+                  }`,
+                  width: 'auto',
+                };
+
+                return (
+                  <div
+                    key={e.name + u.username}
+                    style={style}
+                    className={`z-10 rounded-xl flex text-center items-center justify-center px-1 text-white font-bold shadow-md ${
+                      u.username === user.username ? 'bg-pink' : 'bg-purple'
+                    }`}
+                  >
+                    <div>{e.name}</div>
+                  </div>
+                );
+              } else return null;
+            });
           })}
         </div>
       </div>
