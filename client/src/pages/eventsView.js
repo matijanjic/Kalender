@@ -54,17 +54,19 @@ function EventsView() {
 
   return !calendar ? null : (
     <div className="relative">
-      <EventModal
-        selectedEvent={selectedEvent}
-        show={show}
-        setShow={setShow}
-        setModalNotification={setModalNotification}
-        modalNotification={modalNotification}
-      />
+      {show ? (
+        <EventModal
+          selectedEvent={selectedEvent}
+          show={show}
+          setShow={setShow}
+          setModalNotification={setModalNotification}
+          modalNotification={modalNotification}
+        />
+      ) : null}
       <CalendarNavbar />
 
       <header className="text-3xl font-bold font-montserrat text-pink text-center mt-12">
-        {day} / {month} / {year}
+        {day} / {month + 1} / {year}
       </header>
       {/* TODO fix the back button on the navbar so it leads to the previous page*/}
       {/* TODO keep the events panel fixed size, add scrolling so the space to the right can be reserved for editing events*/}
