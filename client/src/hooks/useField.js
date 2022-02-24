@@ -13,6 +13,7 @@ function useField(type, def) {
     type,
     value,
     onChange,
+    setValue,
   };
 }
 

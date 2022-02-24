@@ -9,6 +9,7 @@ import EventModal from '../components/EventModal/EventModal';
 function EventsView() {
   const params = useParams();
   const user = useSelector((state) => state.login);
+
   const [show, setShow] = useState(false);
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState({});
@@ -18,6 +19,7 @@ function EventsView() {
   const year = parseInt(searchParams.get('year'));
   const month = parseInt(searchParams.get('month'));
   const day = parseInt(searchParams.get('day'));
+
   const calendar = useSelector((state) =>
     state.calendars.find((c) => c.id === params.calendarId),
   );
@@ -54,6 +56,9 @@ function EventsView() {
 
   return !calendar ? null : (
     <div className="relative">
+      {/* modal showing. Starts at null because no event is clicked so some values would be undefined. 
+      After event is edited and saved it should return to null. But when user clicks off the event editor
+      it just becomes hidden so the current edited values are saved to the component state.  */}
       {show ? (
         <EventModal
           selectedEvent={selectedEvent}
@@ -114,12 +119,14 @@ function EventsView() {
             </div>
           ))}
 
-          {/* showing events */}
+          {/* showing events on the boards, goes through all the users and all the events. 
+          There is definitely a better way of doing this, but there shouldn't be a huge 
+          number of events or users for one day/calendar so it isn't a big issue */}
           {calendar.users.map((u) => {
             return events.map((e) => {
               if (e.users.some((evUser) => evUser.username === u.username)) {
-                const start = new Date(e.date).getHours();
-                const end = new Date(e.end).getHours();
+                const start = new Date(e.date).getHours() + 1;
+                const end = new Date(e.end).getHours() + 1;
                 const style = {
                   gridRowStart: start,
                   gridRowEnd: end,
@@ -164,6 +171,8 @@ function EventsView() {
           })}
         </div>
       </div>
+      {/* modal notification in the bottom right corner. Shows when an event edit is started but user has clicked out of it. 
+      Shakes when any event is pressed to remind the user this edit isn't saved */}
       <div
         className={`modal-notification fixed right-4 bottom-4 h-20 w-fit px-4 text-white font-bold cursor-pointer hover:scale-105 shadow-xl rounded-full flex justify-center items-center bg-purple ${
           modalNotification ? null : 'hidden'
