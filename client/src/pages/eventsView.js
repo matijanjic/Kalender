@@ -58,7 +58,8 @@ function EventsView() {
     <div className="relative">
       {/* modal showing. Starts at null because no event is clicked so some values would be undefined. 
       After event is edited and saved it should return to null. But when user clicks off the event editor
-      it just becomes hidden so the current edited values are saved to the component state.  */}
+      it just becomes hidden so the current edited values are saved to the component state. And then the 
+      modalNotification is shown. */}
       {show ? (
         <EventModal
           selectedEvent={selectedEvent}
